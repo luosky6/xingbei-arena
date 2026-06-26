@@ -1,0 +1,15 @@
+# deps / build
+node_modules/
+package-lock.json
+
+# runtime artifacts (对局日志/探针输出/信箱)
+runtime/
+
+# playwright
+test-results/
+playwright-report/
+
+# os / editor
+.DS_Store
+Thumbs.db
+*.log

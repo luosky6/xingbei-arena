@@ -1,0 +1,18 @@
+{
+  "name": "xingbei-arena",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "星杯模式自对弈 harness + 决策桥 + AI 调参 (overlay, 不改引擎)",
+  "scripts": {
+    "setup": "npm i && npx playwright install chromium",
+    "serve": "node bridge/server.mjs",
+    "probe": "node bridge/probe.mjs",
+    "selfplay": "node bridge/selfplay.mjs",
+    "bridge": "node bridge/decisionBridge.mjs",
+    "optimize": "node tune/optimize.mjs"
+  },
+  "dependencies": {
+    "playwright": "^1.47.0"
+  }
+}

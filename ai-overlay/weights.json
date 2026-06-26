@@ -1,0 +1,32 @@
+{
+  "_comment": "可调参权重。自对弈优化(CEM/网格)的对象。初值为先验占位，来自 ai-overlay/value-function.md。",
+  "shiqi_diff": 10.0,
+  "shiqi_enemy_near0": 6.0,
+  "shiqi_self_near0": -8.0,
+  "xingbei_diff": 8.0,
+  "xingbei_self_progress": 3.0,
+  "zhanji_self": 1.0,
+  "actions_left": 4.0,
+  "chain_potential": 3.0,
+  "pierce_potential": 2.0,
+  "hand_quality_self": 1.0,
+  "zhiliao_self_team": 1.5,
+  "enemy_burn_exposure": 2.0,
+  "self_burn_exposure": -2.0,
+  "markers_banked_self": 0.8,
+  "tempo": 1.5,
+
+  "victim": {
+    "w_low_shiqi": 1.2,
+    "w_no_heal": 1.0,
+    "w_focus": 1.5
+  },
+
+  "search": {
+    "enabled": true,
+    "depth": 1,
+    "beam": 4,
+    "use_sandbox": false,
+    "skip_if_dominant_margin": 2.0
+  }
+}
