@@ -83,10 +83,17 @@ LOOP:
 3. 否则直接进入第 3 节自主循环。
 
 ### 当前精确续接点（2026-06-29，已de-risk，从这里继续）
-- 已跑通：`saveConfig+reload` 稳定进 2v2、创建 4 玩家、进选将；见 `startMatchSupported()`、`bridge/launch-test.mjs`。
+- 已跑通：`saveConfig+reload` 稳定进对局、创建玩家、自动选将(点候选+确定)、AI 自动对战(已见 phase10、士气下降)；见 `bridge/selfplay.mjs` startMatch + RECORDER + clicker。
 - `import('/noname.js')` 拿全 API；`get.config` 读 `lib.config.mode_config[mode][item]`；`readFileAsText` 404 无害。
-- **唯一剩余 gap**：选将后自动选 1 候选+确认 → 再 `_status.auto=true` 让 AI 跑完。需定位候选/座位/确认控件真实 class，并在 game.over 用 RECORDER 抓结果。
-- 完成此 gap → selfplay 产 `runtime/matches/*.jsonl` → 进 baseline → 蒸馏 → 循环。## 9. 每轮向人类汇报（简短）
+- selfplay 已能开局自动跑；结果记录器改用模块 import 抓 game.over。
+
+### 待你(MainAgent)自行处理的已知问题清单（启动先逐条收尾）
+1. **跑通验证**：`XB_MATCHES=1 npm run selfplay` 应产出 1 条 `runtime/matches/*.jsonl`。若没产出，查 RECORDER 是否成功 wrap game.over、winner_side/stats 是否正确。
+2. **单局过长**：成局到士气0约 50+ phase，5min 超时可能不够。要么调大 selfplay 超时(300000→600000)，要么降士气上限(XB 不支持环境变量，需在 startMatch 写 mode_config.shiqiMax 小值)做快速验证局。
+3. **人数回落**：mode_config.versus_mode 偶尔回落 'two'(4人)；确保 reload 前已 saveConfig 持久化、3v3 取 'three'(6人)，校验 players===6。
+4. **种子可复现**：固定随机种子(startMatch 注入 Math.random 替换或引擎种子)，否则统计不可复现。
+5. **指定阵容/逐手LLM**：当前自动选随机角色；要测特定阵容需在 startMatch 指派 player.init；逐手LLM用 decisionBridge(信箱)，仅在小样本质性测时开。
+- 收尾后 → baseline 批量 → 蒸馏(含 BP 表) → 进第3节循环。## 9. 每轮向人类汇报（简短）
 - 本轮目标假设、对局矩阵、关键统计（胜率/win_by 分布/场均 change_shiqi）。
 - skills/ 的变更（新增/升级/废弃条目）。
 - 预算消耗与下一轮计划。
