@@ -92,6 +92,26 @@ async function startMatch(page, { mode, seed, teamA, teamB }) {
   }, { mode, seed });
 }
 
+// ===== 已跑通的启动(路径1, saveConfig+reload), 唯余"自动选将"未通 =====
+// 验证: 设 lib.config.mode_config.xingBei + mode='xingBei' → saveConfig → game.reload()
+//   重载后稳定创建 4 玩家进入选将。get.config 读 lib.config.mode_config[mode][item]。
+async function startMatchSupported(page, { versus = 'two' }) {
+  await page.evaluate(async (versus) => {
+    const nn = await import('/noname.js'); const { lib, game, ui } = nn;
+    while (ui.dialogs && ui.dialogs.length) { try { ui.dialogs[0].close(); } catch { break; } }
+    lib.config.mode_config = lib.config.mode_config || {};
+    lib.config.mode_config.xingBei = Object.assign(lib.config.mode_config.xingBei || {}, {
+      versus_mode: versus, free_choose: false, choose_number: 1, AItiLian: true,
+      phaseswap: false, change_identity: false
+    });
+    lib.config.mode = 'xingBei';
+    game.saveConfig('mode', 'xingBei');
+    game.saveConfig('mode_config', lib.config.mode_config);
+    setTimeout(() => game.reload(), 150);
+  }, versus);
+  // TODO[最后一步]: 重载后自动选将+确认, 再 _status.auto=true 让 AI 跑完。
+}
+
 await mkdir(MATCHES, { recursive: true });
 const server = await startServer();
 const browser = await chromium.launch({ headless: HEADLESS });

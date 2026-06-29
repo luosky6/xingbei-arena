@@ -38,27 +38,39 @@ const launch = await p2.evaluate(async () => {
   const nn = await import('/noname.js'); const { lib, game, ui, get, _status } = nn;
   const log = [];
   try {
-    // 1. 关掉新手向导/任何对话框
     let guard = 10; while (ui.dialogs && ui.dialogs.length && guard--) { try { ui.dialogs[0].close(); } catch (e) { break; } }
-    // 2. 切模式 + 写入 xingBei 子配置(模式通过 get.config 读取 lib.config['xingBei_'+key])
+    lib.config.mode_config = lib.config.mode_config || {};
+    lib.config.mode_config.xingBei = Object.assign(lib.config.mode_config.xingBei || {}, {
+      versus_mode: 'two', free_choose: false, AItiLian: true, phaseswap: false, change_identity: false, choose_number: 1
+    });
     lib.config.mode = 'xingBei';
-    const mc = lib.mode.xingBei.config || {};
-    const overrides = { versus_mode: 'two', free_choose: false, AItiLian: true, phaseswap: false };
-    for (const k in mc) {
-      const v = (k in overrides) ? overrides[k] : mc[k].init;
-      lib.config['xingBei_' + k] = v;
-    }
     _status.auto = true;
-    log.push('config set; versus=' + get.config('versus_mode') + ' free=' + get.config('free_choose'));
-    // 3. 重放 onload 末尾的启动
-    ui.create.arena();
-    game.createEvent('game', false).setContent(lib.mode.xingBei.start);
-    log.push('launched');
+    game.saveConfig('mode', 'xingBei');
+    game.saveConfig('mode_config', lib.config.mode_config);
+    log.push('saved; versus=' + get.config('versus_mode') + ' free=' + get.config('free_choose'));
+    setTimeout(() => game.reload(), 200);
+    log.push('reload scheduled');
   } catch (e) { log.push('ERR ' + String(e)); }
   return { log };
 });
 console.log('[pass2-launch]', JSON.stringify(launch));
-await p2.waitForTimeout(15000);
+await p2.waitForTimeout(18000);
+// 选角后开启 auto + 自动确认, 让 AI 全自动跑完
+await p2.evaluate(async () => {
+  const nn = await import('/noname.js'); const { _status, game, ui } = nn;
+  _status.auto = true;
+  const tick = () => {
+    try {
+      _status.auto = true;
+      const sel = document.querySelector('.dialog .button.selected');
+      if (!sel) { const b = document.querySelector('.dialog .button'); if (b) b.click(); }
+      const conf = [...document.querySelectorAll('.control,.menubutton,.confirm>div,#window .menubutton')].find(e => /确定|开始/.test(e.innerText));
+      if (conf) conf.click();
+    } catch (e) {}
+  };
+  window.__xbAuto = setInterval(tick, 600);
+});
+await p2.waitForTimeout(60000);
 const st = await p2.evaluate(async () => {
   const nn = await import('/noname.js'); const { lib, game, ui, _status } = nn;
   return {
