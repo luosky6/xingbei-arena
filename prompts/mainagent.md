@@ -80,6 +80,12 @@ LOOP:
    **先完成 step1 发现任务**（读 runtime/probe.json 补全 startMatch），跑通 1 局验证，再进入主循环。
 3. 否则直接进入第 3 节自主循环。
 
+### 当前精确续接点（2026-06-29，已de-risk，从这里继续）
+- 已跑通：`saveConfig+reload` 稳定进 2v2、创建 4 玩家、进选将；见 `startMatchSupported()`、`bridge/launch-test.mjs`。
+- `import('/noname.js')` 拿全 API；`get.config` 读 `lib.config.mode_config[mode][item]`；`readFileAsText` 404 无害。
+- **唯一剩余 gap**：选将后自动选 1 候选+确认 → 再 `_status.auto=true` 让 AI 跑完。需定位候选/座位/确认控件真实 class，并在 game.over 用 RECORDER 抓结果。
+- 完成此 gap → selfplay 产 `runtime/matches/*.jsonl` → 进 baseline → 蒸馏 → 循环。
+
 ## 9. 每轮向人类汇报（简短）
 - 本轮目标假设、对局矩阵、关键统计（胜率/win_by 分布/场均 change_shiqi）。
 - skills/ 的变更（新增/升级/废弃条目）。
