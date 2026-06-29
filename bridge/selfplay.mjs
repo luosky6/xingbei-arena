@@ -27,13 +27,14 @@ const RECORDER = () => {
   if (window.__xbRecorderInstalled) return;
   window.__xbRecorderInstalled = true;
   window.__xbResult = null;
-  const wrap = () => {
-    if (!window.game || !window.game.over || window.game.__xbWrapped) { return setTimeout(wrap, 200); }
-    const orig = window.game.over.bind(window.game);
-    window.game.__xbWrapped = true;
-    window.game.over = function (bool) {
+  const wrap = async () => {
+    const nn = window.__nn || (window.__nn = await import('/noname.js').catch(()=>null));
+    const g = nn && nn.game;
+    if (!g || !g.over || g.__xbWrapped) { return setTimeout(wrap, 200); }
+    g.__xbWrapped = true;
+    const orig = g.over.bind(g);
+    g.over = function (bool) {
       try {
-        const g = window.game;
         const stats = (g.players || []).map(p => {
           const acc = { seat: p.dataset && p.dataset.position, actor: p.name1 || p.name,
             side: p.side ? 'red' : 'blue', damage: 0, damaged: 0,
@@ -47,7 +48,7 @@ const RECORDER = () => {
             if (s.addZhanJi) acc.add_zhanji += s.addZhanJi;
             if (s.addZhiLiao) acc.add_zhiliao += s.addZhiLiao;
           }
-          acc.is_winner = (bool === true) === (p.side === window.game.me.side);
+          acc.is_winner = (bool === true) === (p.side === g.me.side);
           return acc;
         });
         window.__xbResult = {
