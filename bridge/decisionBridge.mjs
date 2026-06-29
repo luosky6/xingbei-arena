@@ -17,8 +17,8 @@ const INBOX = join(RUNTIME, 'inbox');
 const OUTBOX = join(RUNTIME, 'outbox');
 const POLL_MS = 500;
 const DEADLINE_MS = Number(process.env.XB_DEADLINE || 30000);
-// 哪些座位交给 LLM(其余可走 fallback/内置以省预算)。逗号分隔的 position。
-const LLM_SEATS = (process.env.XB_LLM_SEATS || '1').split(',').map(s => s.trim());
+// 哪些座位交给 LLM。固定六人局(3v3): 默认全部 6 座位。
+const LLM_SEATS = (process.env.XB_LLM_SEATS || '1,2,3,4,5,6').split(',').map(s => s.trim());
 
 await mkdir(INBOX, { recursive: true });
 await mkdir(OUTBOX, { recursive: true });

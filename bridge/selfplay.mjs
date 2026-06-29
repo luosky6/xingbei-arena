@@ -15,7 +15,7 @@ const RUNTIME = join(__dirname, '..', 'runtime');
 const MATCHES = join(RUNTIME, 'matches');
 
 const N        = Number(process.env.XB_MATCHES || 20);
-const MODE     = process.env.XB_MODE || 'two';            // two=2v2, three=3v3, four=4v4
+const MODE     = process.env.XB_MODE || 'three';            // 固定六人局: three=3v3(6人)
 const SEED0    = Number(process.env.XB_SEED || 1000);
 const TEAM_A   = (process.env.XB_TEAM_A || '').split(',').filter(Boolean); // e.g. fengZhiJianSheng,shengNv
 const TEAM_B   = (process.env.XB_TEAM_B || '').split(',').filter(Boolean);
@@ -95,7 +95,7 @@ async function startMatch(page, { mode, seed, teamA, teamB }) {
 // ===== 已跑通的启动(路径1, saveConfig+reload), 唯余"自动选将"未通 =====
 // 验证: 设 lib.config.mode_config.xingBei + mode='xingBei' → saveConfig → game.reload()
 //   重载后稳定创建 4 玩家进入选将。get.config 读 lib.config.mode_config[mode][item]。
-async function startMatchSupported(page, { versus = 'two' }) {
+async function startMatchSupported(page, { versus = 'three' }) {
   await page.evaluate(async (versus) => {
     const nn = await import('/noname.js'); const { lib, game, ui } = nn;
     while (ui.dialogs && ui.dialogs.length) { try { ui.dialogs[0].close(); } catch { break; } }
