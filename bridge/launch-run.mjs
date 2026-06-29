@@ -41,11 +41,10 @@ console.log('[run] waiting for game over (max 3min)...');
 // 选将自动点击: 选1候选 + 确定; AI 补其余
 const clicker = setInterval(async () => {
   try { await page.evaluate(() => {
-    const sel = document.querySelector('#arena .dialog .button.selected');
-    if (!sel) { const b = document.querySelector('#arena .dialog .button'); if (b) b.click(); }
-    [...document.querySelectorAll('.control')].forEach(c => { if (/确定|开始/.test(c.innerText)) c.click(); });
+    const d = document.querySelector('.dialog'); if (d) { const b = d.querySelector('.button:not(.selected)'); if (b) b.click(); }
+    document.querySelectorAll('.menubutton,.control,.caption').forEach(c => { if (/确定|开始|ok/i.test(c.innerText)) c.click(); });
   }); } catch {}
-}, 800);try { await page.waitForFunction(() => window.__xbResult !== null, { timeout: 180000 }); }
-catch { console.log('[run] timeout; snapshot:', JSON.stringify(await page.evaluate(async()=>{const{game,_status}=await import('/noname.js');return{players:game.players?.length,phase:game.phaseNumber,red:game.hongShiQi,blue:game.lanShiQi,auto:_status.auto,choosing:_status.imchoosing};}))); await browser.close(); server.close(); process.exit(0); }
+}, 700);try { await page.waitForFunction(() => window.__xbResult !== null, { timeout: 180000 }); }
+catch { console.log('[run] timeout; snapshot:', JSON.stringify(await page.evaluate(async()=>{const{game,_status,ui}=await import('/noname.js');const d=document.querySelector('.dialog');return{players:game.players?.length,phase:game.phaseNumber,red:game.hongShiQi,blue:game.lanShiQi,auto:_status.auto,choosing:_status.imchoosing,dialogClasses:d?d.className:null,btn:document.querySelectorAll('.dialog .button').length,ctrls:[...document.querySelectorAll('.menubutton,.control')].map(c=>c.innerText).slice(0,8)};}))); await browser.close(); server.close(); process.exit(0); }
 console.log('[run] RESULT', JSON.stringify(await page.evaluate(()=>window.__xbResult)));
 await browser.close(); server.close();

@@ -86,10 +86,15 @@ async function startMatch(page, { mode, seed, teamA, teamB }) {
   //   - get.config 的键映射需先确认(launch-test 显示 free_choose 仍读到 true, 说明键名非 'xingBei_free_choose')。
   //
   // 角色自动分配: 设 free_choose=false; 若仍弹选角对话框, 在 _status.auto 下需驱动 ai 自动选取或随机指派。
-  await page.evaluate(({ mode, seed }) => {
-    // TODO[DISCOVER]: 按上面"路径1"或"路径2"实现真正启动。当前为占位, 不实际开局。
-    void mode; void seed;
-  }, { mode, seed });
+  await page.evaluate(async ({ mode }) => {
+    const nn = await import('/noname.js'); const { lib, game, ui, _status } = nn;
+    while (ui.dialogs && ui.dialogs.length) { try { ui.dialogs[0].close(); } catch { break; } }
+    lib.config.mode_config = lib.config.mode_config || {};
+    lib.config.mode_config.xingBei = Object.assign(lib.config.mode_config.xingBei||{}, { versus_mode: mode, free_choose:false, choose_number:1, AItiLian:true, phaseswap:false, change_identity:false });
+    lib.config.mode = 'xingBei'; _status.auto = true;
+    game.saveConfig('mode','xingBei'); game.saveConfig('mode_config', lib.config.mode_config);
+    setTimeout(()=>game.reload(), 150);
+  }, { mode });
 }
 
 // ===== 已跑通的启动(路径1, saveConfig+reload), 唯余"自动选将"未通 =====
@@ -124,6 +129,7 @@ for (let i = 0; i < N; i++) {
   page.on('console', m => { if (/error|fail/i.test(m.text())) console.log('[page]', m.text()); });
   try {
     await page.addInitScript(RECORDER);
+    await page.addInitScript(() => { window.__xbAuto = setInterval(async()=>{try{const{_status}=window.__nn||(window.__nn=await import('/noname.js'));if(_status)_status.auto=true;}catch{}},500); });
     if (OVERLAY) {
       // 注入优化AI overlay(ai-overlay/install.js)。需引擎初始化后再 install, 见 README。
       // TODO[DISCOVER]: 在引擎 ready 后调用 installOverlay(engineRefs, weights)。
@@ -131,9 +137,11 @@ for (let i = 0; i < N; i++) {
     await page.goto(`http://localhost:${PORT}/index.html`, { waitUntil: 'load', timeout: 60000 });
     await page.waitForTimeout(6000);
     await startMatch(page, { mode: MODE, seed: SEED0 + i, teamA: TEAM_A, teamB: TEAM_B });
+    const clk = setInterval(()=>page.evaluate(()=>{const d=document.querySelector('.dialog');if(d){const b=d.querySelector('.button:not(.selected)');if(b)b.click();}document.querySelectorAll('.menubutton,.control').forEach(c=>{if(/确定|开始/.test(c.innerText))c.click();});}).catch(()=>{}), 700);
 
     // 等待对局结束(__xbResult 被填充), 最多等 5 分钟。
     await page.waitForFunction(() => window.__xbResult !== null, { timeout: 300000 });
+    clearInterval(clk);
     const result = await page.evaluate(() => window.__xbResult);
 
     const line = JSON.stringify({ type: 'result', match_id: matchId, mode: MODE,

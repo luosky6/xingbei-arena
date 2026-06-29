@@ -44,6 +44,8 @@ LOOP:
         XB_MATCHES=<n> XB_MODE=<two|three|four> XB_TEAM_A=... XB_TEAM_B=... npm run selfplay
      固定种子以可复现；记录到 runtime/experiments.jsonl。
   4. 拉起 Distiller 子进程分析本批 → 更新 skills/ → 读回它产出的新假设。
+     - **BP 蒸馏(必做)**：每轮把对局/选秀结果回填 skills/tactics/bp-draft.md 的"按角色/对位针对表"
+       (Ban优先级/必抢/对位应对/顺位价值)；它是最终 skill 的组成部分，样本够再升 verified。
   5. 更新 run-state.json（局数/预算/round++）。
   6. 检查停止判据(第5节) 与 预算(第4节)；命中 → 退出循环并写总结；否则回到 1。
 ```
@@ -84,9 +86,7 @@ LOOP:
 - 已跑通：`saveConfig+reload` 稳定进 2v2、创建 4 玩家、进选将；见 `startMatchSupported()`、`bridge/launch-test.mjs`。
 - `import('/noname.js')` 拿全 API；`get.config` 读 `lib.config.mode_config[mode][item]`；`readFileAsText` 404 无害。
 - **唯一剩余 gap**：选将后自动选 1 候选+确认 → 再 `_status.auto=true` 让 AI 跑完。需定位候选/座位/确认控件真实 class，并在 game.over 用 RECORDER 抓结果。
-- 完成此 gap → selfplay 产 `runtime/matches/*.jsonl` → 进 baseline → 蒸馏 → 循环。
-
-## 9. 每轮向人类汇报（简短）
+- 完成此 gap → selfplay 产 `runtime/matches/*.jsonl` → 进 baseline → 蒸馏 → 循环。## 9. 每轮向人类汇报（简短）
 - 本轮目标假设、对局矩阵、关键统计（胜率/win_by 分布/场均 change_shiqi）。
 - skills/ 的变更（新增/升级/废弃条目）。
 - 预算消耗与下一轮计划。
