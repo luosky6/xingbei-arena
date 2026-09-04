@@ -1,10 +1,11 @@
 // bridge/launch-run.mjs — 跑通一局: 持续保持 _status.auto, 内置AI自动选将+对战, 抓 game.over。
 import { chromium } from 'playwright';
+import { browserLaunchOptions } from './browser.mjs';
 import { fileURLToPath } from 'node:url';
 import { startServer, PORT } from './server.mjs';
 
 const server = await startServer();
-const browser = await chromium.launch({ headless: true });
+const browser = await chromium.launch(browserLaunchOptions({ headless: true }));
 const page = await browser.newPage();
 page.on('console', m => { const t = m.text(); if (/error|TypeError|cannot/i.test(t)) console.log('[pg]', t.slice(0,160)); });
 

@@ -1,0 +1,205 @@
+{
+  "schema_version": "knowledge.v1",
+  "generated_at": "2026-09-03T00:00:00.000+08:00",
+  "engine_root": "C:\\Users\\SKY\\Desktop\\Workspace\\Xingbei\\noname_xingbei",
+  "engine_fingerprint": "sha256:87969d59674cdcfda1060d35edbd924d12e20fa3d6aab60352726223cf18cc9d",
+  "files_scanned": 154,
+  "source_documents": [
+    {
+      "source_id": "xingbei-10th-anniversary-manual",
+      "source_tier": "normative_rule",
+      "path": "../星杯十周年说明书.pdf",
+      "pdf_print_pages": [
+        "00-21"
+      ],
+      "role": "十周年核心规范规则",
+      "status": "provided-local-source",
+      "sha256": "5F525E5F691915EAF756383D8E02EE768CB64D6822FE3DF34C6B43FAA5517779"
+    },
+    {
+      "source_id": "official-qa-and-supplements",
+      "source_tier": "normative_rule",
+      "url": "https://drive.google.com/drive/folders/1tFEuqt2cjeSkfuYKv7MD9_H2DLI-S8dV?usp=sharing",
+      "discovered_from": "xingbei-10th-anniversary-manual:print-page-20",
+      "role": "官方 Q&A、二扩规则、结算时间轴、技能表、改动表与星杯宇宙资料入口",
+      "status": "official-supplement-index"
+    },
+    {
+      "source_id": "official-no-action-v25.4.5",
+      "source_tier": "normative_rule",
+      "artifact_name": "星杯传说十周年二扩终末的无法行动 v25.4.5",
+      "parent_source_id": "official-qa-and-supplements",
+      "role": "逐角色无法行动与恶意抹杀行动可能裁定",
+      "status": "official-supplement-index"
+    },
+    {
+      "source_id": "official-timeline-v25",
+      "source_tier": "normative_rule",
+      "artifact_name": "十周年二扩用结算时间轴终末",
+      "parent_source_id": "official-qa-and-supplements",
+      "role": "阶段顺序与伤害①~⑥结算顺序",
+      "status": "official-supplement-index"
+    },
+    {
+      "source_id": "official-skill-table-v25",
+      "source_tier": "normative_rule",
+      "artifact_name": "星杯传说十周年至补完包技能表",
+      "parent_source_id": "official-qa-and-supplements",
+      "role": "角色、技能、版本和技能类型索引",
+      "status": "official-supplement-index"
+    },
+    {
+      "source_id": "official-change-log",
+      "source_tier": "normative_rule",
+      "artifact_name": "星杯历届改动",
+      "parent_source_id": "official-qa-and-supplements",
+      "role": "版本差异与印刷/技能改动",
+      "status": "official-supplement-index"
+    },
+    {
+      "source_id": "official-universe-index",
+      "source_tier": "normative_rule",
+      "artifact_name": "星杯宇宙",
+      "parent_source_id": "official-qa-and-supplements",
+      "role": "角色包、版本和扩展宇宙索引",
+      "status": "official-supplement-index"
+    },
+    {
+      "source_id": "engine",
+      "source_tier": "engine_implementation",
+      "path": "../noname_xingbei",
+      "role": "当前运行时实现",
+      "engine_fingerprint": "sha256:87969d59674cdcfda1060d35edbd924d12e20fa3d6aab60352726223cf18cc9d"
+    },
+    {
+      "source_id": "engine-docs",
+      "source_tier": "engine_implementation",
+      "path": "../noname_xingbei/docs",
+      "role": "开发说明/实现备注，不是规范规则",
+      "status": "reference-only"
+    }
+  ],
+  "objects": {
+    "packs": {
+      "total": 10,
+      "parsed": 10
+    },
+    "characters": {
+      "total": 119,
+      "parsed": 119
+    },
+    "skills": {
+      "total": 640,
+      "parsed": 632,
+      "missing_description": 147,
+      "missing_ai": 424
+    },
+    "cards": {
+      "total": 11,
+      "parsed": 11
+    },
+    "events": {
+      "total": 456,
+      "parsed": 456
+    },
+    "timings": {
+      "total": 214,
+      "parsed": 214
+    },
+    "synergies": {
+      "total": 7021,
+      "hypothesis": 7021
+    }
+  },
+  "parse_failures": [
+    {
+      "kind": "dynamic_or_spread_structure",
+      "file": "character/boss.js",
+      "line": 13,
+      "locator": "character/skill object",
+      "reason": "computed keys or object spread require manual/runtime confirmation"
+    },
+    {
+      "kind": "dynamic_or_spread_structure",
+      "file": "character/poXiao.js",
+      "line": 4,
+      "locator": "character/skill object",
+      "reason": "computed keys or object spread require manual/runtime confirmation"
+    },
+    {
+      "kind": "dynamic_or_spread_structure",
+      "file": "character/sanBan.js",
+      "line": 8,
+      "locator": "character/skill object",
+      "reason": "computed keys or object spread require manual/runtime confirmation"
+    },
+    {
+      "kind": "dynamic_or_spread_structure",
+      "file": "character/shenZiChuangLin.js",
+      "line": 8,
+      "locator": "character/skill object",
+      "reason": "computed keys or object spread require manual/runtime confirmation"
+    },
+    {
+      "kind": "dynamic_or_spread_structure",
+      "file": "character/shiZhouNian.js",
+      "line": 4,
+      "locator": "character/skill object",
+      "reason": "computed keys or object spread require manual/runtime confirmation"
+    },
+    {
+      "kind": "dynamic_or_spread_structure",
+      "file": "character/siBan.js",
+      "line": 8,
+      "locator": "character/skill object",
+      "reason": "computed keys or object spread require manual/runtime confirmation"
+    },
+    {
+      "kind": "dynamic_or_spread_structure",
+      "file": "character/teDian.js",
+      "line": 8,
+      "locator": "character/skill object",
+      "reason": "computed keys or object spread require manual/runtime confirmation"
+    },
+    {
+      "kind": "dynamic_or_spread_structure",
+      "file": "character/yiDuanYeHuo.js",
+      "line": 8,
+      "locator": "character/skill object",
+      "reason": "computed keys or object spread require manual/runtime confirmation"
+    },
+    {
+      "kind": "dynamic_or_spread_structure",
+      "file": "character/zhongMoDaoZhu.js",
+      "line": 8,
+      "locator": "character/skill object",
+      "reason": "computed keys or object spread require manual/runtime confirmation"
+    }
+  ],
+  "docs_and_source_gaps": [
+    {
+      "id": "manual-text-extraction",
+      "status": "partial",
+      "source": "../星杯十周年说明书.pdf",
+      "note": "核心规则已进入 curated/rules/rule-ontology-draft.json；仍需逐条与引擎动态行为裁定。"
+    },
+    {
+      "id": "official-supplements",
+      "status": "registered",
+      "source": "official-qa-and-supplements",
+      "note": "官方 Q&A、无法行动专项、结算时间轴和技能表已登记；逐条编译待完成。"
+    },
+    {
+      "id": "engine-vs-manual",
+      "status": "open",
+      "source": "engine + manual",
+      "note": "Do not promote engine behavior to normative truth without a curated adjudication."
+    },
+    {
+      "id": "dynamic-computed-objects",
+      "status": "open",
+      "note": "Computed keys, spreads and dynamic registration require runtime confirmation."
+    }
+  ],
+  "static_conclusions": "All role, skill, timing, seat and synergy semantics generated by this script are hypotheses until dynamic evidence is attached."
+}

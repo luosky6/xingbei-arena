@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://xingbei-arena.local/schema/seating.v1.json",
+  "title": "Xingbei public seating snapshot",
+  "type": "object",
+  "required": ["schema_version", "seat_order", "side_by_seat", "first_act_seat", "turn_order_from_first_act", "team_sequence"],
+  "properties": {
+    "schema_version": { "const": "seating.v1" },
+    "seat_order": { "type": "array", "items": { "type": "integer" } },
+    "side_by_seat": { "type": "object", "additionalProperties": { "enum": ["red", "blue", null] } },
+    "engine_seat_num_by_seat": { "type": "object", "additionalProperties": { "type": "integer" } },
+    "first_act": { "type": ["object", "null"] },
+    "first_act_seat": { "type": ["integer", "null"] },
+    "turn_order_from_first_act": { "type": "array", "items": { "type": "integer" } },
+    "next_by_seat": { "type": "object", "additionalProperties": { "type": "integer" } },
+    "previous_by_seat": { "type": "object", "additionalProperties": { "type": "integer" } },
+    "team_sequence": { "type": ["array", "null"], "items": { "type": "boolean" } },
+    "team_sequence_kind": { "type": ["string", "null"] },
+    "configured_team_sequence": { "type": ["string", "null"] },
+    "choose_mode": { "type": ["string", "null"] },
+    "phase_swap": { "type": ["boolean", "null"] },
+    "draft_pick_order": { "type": ["array", "null"] },
+    "draft_red_order": { "type": ["array", "null"] },
+    "draft_blue_order": { "type": ["array", "null"] },
+    "actual_action_order": { "type": "array" },
+    "actual_action_order_count": { "type": "integer", "minimum": 0 }
+  },
+  "additionalProperties": true
+}

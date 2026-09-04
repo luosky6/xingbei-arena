@@ -1,0 +1,527 @@
+{
+  "schema_version": "knowledge.v1",
+  "generated_at": "2026-09-03T00:00:00.000+08:00",
+  "engine_fingerprint": "sha256:87969d59674cdcfda1060d35edbd924d12e20fa3d6aab60352726223cf18cc9d",
+  "objects": [
+    {
+      "schema_version": "knowledge.v1",
+      "id": "rule:game.players_and_victory",
+      "kind": "rule",
+      "source_tier": "difference",
+      "label": "人数、队伍与胜利线",
+      "normative_rule": {
+        "source_id": "xingbei-10th-anniversary-manual",
+        "pdf_print_page": "08-09",
+        "pdf_page": 8,
+        "status": "source-registered; curated draft available",
+        "curated_file": "knowledge/curated/rules/rule-ontology-draft.json",
+        "curated_rule_id": "game.players_and_victory"
+      },
+      "engine_behavior": {
+        "source_id": "engine",
+        "file": "mode/xingBei.js",
+        "locator": "game.over",
+        "status": "static implementation reference"
+      },
+      "difference": {
+        "status": "to_review",
+        "notes": "规范资料与当前引擎尚未完成逐条动态裁定"
+      },
+      "adjudication_status": "needs_dynamic_test",
+      "provenance": [
+        {
+          "source_id": "xingbei-10th-anniversary-manual",
+          "source_kind": "normative_rule",
+          "pdf_print_page": "08-09",
+          "pdf_page": 8
+        },
+        {
+          "source_id": "engine",
+          "source_kind": "engine_implementation",
+          "file": "mode/xingBei.js",
+          "locator": "game.over"
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "engine",
+          "file": "mode/xingBei.js",
+          "locator": "game.over"
+        }
+      ],
+      "dynamic_test_ids": [],
+      "applicable_versions": [
+        "manual-10th-anniversary",
+        "engine-source"
+      ]
+    },
+    {
+      "schema_version": "knowledge.v1",
+      "id": "rule:game.setup_and_order",
+      "kind": "rule",
+      "source_tier": "difference",
+      "label": "准备、座次、首行动与选角顺位",
+      "normative_rule": {
+        "source_id": "xingbei-10th-anniversary-manual",
+        "pdf_print_page": "10-11",
+        "pdf_page": 10,
+        "status": "source-registered; curated draft available",
+        "curated_file": "knowledge/curated/rules/rule-ontology-draft.json",
+        "curated_rule_id": "game.setup_and_order"
+      },
+      "engine_behavior": {
+        "source_id": "engine",
+        "file": "mode/xingBei.js",
+        "locator": "_status.firstAct",
+        "status": "static implementation reference"
+      },
+      "difference": {
+        "status": "to_review",
+        "notes": "规范资料与当前引擎尚未完成逐条动态裁定"
+      },
+      "adjudication_status": "needs_dynamic_test",
+      "provenance": [
+        {
+          "source_id": "xingbei-10th-anniversary-manual",
+          "source_kind": "normative_rule",
+          "pdf_print_page": "10-11",
+          "pdf_page": 10
+        },
+        {
+          "source_id": "engine",
+          "source_kind": "engine_implementation",
+          "file": "mode/xingBei.js",
+          "locator": "_status.firstAct"
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "engine",
+          "file": "mode/xingBei.js",
+          "locator": "_status.firstAct"
+        }
+      ],
+      "dynamic_test_ids": [],
+      "applicable_versions": [
+        "manual-10th-anniversary",
+        "engine-source"
+      ]
+    },
+    {
+      "schema_version": "knowledge.v1",
+      "id": "rule:combat.attack",
+      "kind": "rule",
+      "source_tier": "difference",
+      "label": "攻击与应战",
+      "normative_rule": {
+        "source_id": "xingbei-10th-anniversary-manual",
+        "pdf_print_page": "12",
+        "pdf_page": 12,
+        "status": "source-registered; curated draft available",
+        "curated_file": "knowledge/curated/rules/rule-ontology-draft.json",
+        "curated_rule_id": "combat.attack"
+      },
+      "engine_behavior": {
+        "source_id": "engine",
+        "file": "card/xingBei.js",
+        "locator": "type:\"gongJi\"",
+        "status": "static implementation reference"
+      },
+      "difference": {
+        "status": "to_review",
+        "notes": "规范资料与当前引擎尚未完成逐条动态裁定"
+      },
+      "adjudication_status": "needs_dynamic_test",
+      "provenance": [
+        {
+          "source_id": "xingbei-10th-anniversary-manual",
+          "source_kind": "normative_rule",
+          "pdf_print_page": "12",
+          "pdf_page": 12
+        },
+        {
+          "source_id": "engine",
+          "source_kind": "engine_implementation",
+          "file": "card/xingBei.js",
+          "locator": "type:\"gongJi\""
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "engine",
+          "file": "card/xingBei.js",
+          "locator": "type:\"gongJi\""
+        }
+      ],
+      "dynamic_test_ids": [],
+      "applicable_versions": [
+        "manual-10th-anniversary",
+        "engine-source"
+      ]
+    },
+    {
+      "schema_version": "knowledge.v1",
+      "id": "rule:action.spell_and_special",
+      "kind": "rule",
+      "source_tier": "difference",
+      "label": "法术与特殊行动",
+      "normative_rule": {
+        "source_id": "xingbei-10th-anniversary-manual",
+        "pdf_print_page": "13",
+        "pdf_page": 13,
+        "status": "source-registered; curated draft available",
+        "curated_file": "knowledge/curated/rules/rule-ontology-draft.json",
+        "curated_rule_id": "action.spell_and_special"
+      },
+      "engine_behavior": {
+        "source_id": "engine",
+        "file": "mode/xingBei.js",
+        "locator": "gouMai",
+        "status": "static implementation reference"
+      },
+      "difference": {
+        "status": "to_review",
+        "notes": "规范资料与当前引擎尚未完成逐条动态裁定"
+      },
+      "adjudication_status": "needs_dynamic_test",
+      "provenance": [
+        {
+          "source_id": "xingbei-10th-anniversary-manual",
+          "source_kind": "normative_rule",
+          "pdf_print_page": "13",
+          "pdf_page": 13
+        },
+        {
+          "source_id": "engine",
+          "source_kind": "engine_implementation",
+          "file": "mode/xingBei.js",
+          "locator": "gouMai"
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "engine",
+          "file": "mode/xingBei.js",
+          "locator": "gouMai"
+        }
+      ],
+      "dynamic_test_ids": [],
+      "applicable_versions": [
+        "manual-10th-anniversary",
+        "engine-source"
+      ]
+    },
+    {
+      "schema_version": "knowledge.v1",
+      "id": "rule:damage.morale",
+      "kind": "rule",
+      "source_tier": "difference",
+      "label": "伤害、爆牌与士气",
+      "normative_rule": {
+        "source_id": "xingbei-10th-anniversary-manual",
+        "pdf_print_page": "14",
+        "pdf_page": 14,
+        "status": "source-registered; curated draft available",
+        "curated_file": "knowledge/curated/rules/rule-ontology-draft.json",
+        "curated_rule_id": "damage.morale"
+      },
+      "engine_behavior": {
+        "source_id": "engine",
+        "file": "noname/game/index.js",
+        "locator": "changeShiQi",
+        "status": "static implementation reference"
+      },
+      "difference": {
+        "status": "to_review",
+        "notes": "规范资料与当前引擎尚未完成逐条动态裁定"
+      },
+      "adjudication_status": "needs_dynamic_test",
+      "provenance": [
+        {
+          "source_id": "xingbei-10th-anniversary-manual",
+          "source_kind": "normative_rule",
+          "pdf_print_page": "14",
+          "pdf_page": 14
+        },
+        {
+          "source_id": "engine",
+          "source_kind": "engine_implementation",
+          "file": "noname/game/index.js",
+          "locator": "changeShiQi"
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "engine",
+          "file": "noname/game/index.js",
+          "locator": "changeShiQi"
+        }
+      ],
+      "dynamic_test_ids": [],
+      "applicable_versions": [
+        "manual-10th-anniversary",
+        "engine-source"
+      ]
+    },
+    {
+      "schema_version": "knowledge.v1",
+      "id": "rule:resource.energy_heal_response",
+      "kind": "rule",
+      "source_tier": "difference",
+      "label": "能量、治疗与响应",
+      "normative_rule": {
+        "source_id": "xingbei-10th-anniversary-manual",
+        "pdf_print_page": "15",
+        "pdf_page": 15,
+        "status": "source-registered; curated draft available",
+        "curated_file": "knowledge/curated/rules/rule-ontology-draft.json",
+        "curated_rule_id": "resource.energy_heal_response"
+      },
+      "engine_behavior": {
+        "source_id": "engine",
+        "file": "noname/library/element/player.js",
+        "locator": "zhiLiao",
+        "status": "static implementation reference"
+      },
+      "difference": {
+        "status": "to_review",
+        "notes": "规范资料与当前引擎尚未完成逐条动态裁定"
+      },
+      "adjudication_status": "needs_dynamic_test",
+      "provenance": [
+        {
+          "source_id": "xingbei-10th-anniversary-manual",
+          "source_kind": "normative_rule",
+          "pdf_print_page": "15",
+          "pdf_page": 15
+        },
+        {
+          "source_id": "engine",
+          "source_kind": "engine_implementation",
+          "file": "noname/library/element/player.js",
+          "locator": "zhiLiao"
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "engine",
+          "file": "noname/library/element/player.js",
+          "locator": "zhiLiao"
+        }
+      ],
+      "dynamic_test_ids": [],
+      "applicable_versions": [
+        "manual-10th-anniversary",
+        "engine-source"
+      ]
+    },
+    {
+      "schema_version": "knowledge.v1",
+      "id": "rule:resource.limits",
+      "kind": "rule",
+      "source_tier": "difference",
+      "label": "启动与资源上限",
+      "normative_rule": {
+        "source_id": "xingbei-10th-anniversary-manual",
+        "pdf_print_page": "16",
+        "pdf_page": 16,
+        "status": "source-registered; curated draft available",
+        "curated_file": "knowledge/curated/rules/rule-ontology-draft.json",
+        "curated_rule_id": "resource.limits"
+      },
+      "engine_behavior": {
+        "source_id": "engine",
+        "file": "noname/game/index.js",
+        "locator": "xingBeiMax",
+        "status": "static implementation reference"
+      },
+      "difference": {
+        "status": "to_review",
+        "notes": "规范资料与当前引擎尚未完成逐条动态裁定"
+      },
+      "adjudication_status": "needs_dynamic_test",
+      "provenance": [
+        {
+          "source_id": "xingbei-10th-anniversary-manual",
+          "source_kind": "normative_rule",
+          "pdf_print_page": "16",
+          "pdf_page": 16
+        },
+        {
+          "source_id": "engine",
+          "source_kind": "engine_implementation",
+          "file": "noname/game/index.js",
+          "locator": "xingBeiMax"
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "engine",
+          "file": "noname/game/index.js",
+          "locator": "xingBeiMax"
+        }
+      ],
+      "dynamic_test_ids": [],
+      "applicable_versions": [
+        "manual-10th-anniversary",
+        "engine-source"
+      ]
+    },
+    {
+      "schema_version": "knowledge.v1",
+      "id": "rule:skill.unique",
+      "kind": "rule",
+      "source_tier": "difference",
+      "label": "独有技",
+      "normative_rule": {
+        "source_id": "xingbei-10th-anniversary-manual",
+        "pdf_print_page": "17",
+        "pdf_page": 17,
+        "status": "source-registered; curated draft available",
+        "curated_file": "knowledge/curated/rules/rule-ontology-draft.json",
+        "curated_rule_id": "skill.unique"
+      },
+      "engine_behavior": {
+        "source_id": "engine",
+        "file": "character/shiZhouNian.js",
+        "locator": "pack_skills",
+        "status": "static implementation reference"
+      },
+      "difference": {
+        "status": "to_review",
+        "notes": "规范资料与当前引擎尚未完成逐条动态裁定"
+      },
+      "adjudication_status": "needs_dynamic_test",
+      "provenance": [
+        {
+          "source_id": "xingbei-10th-anniversary-manual",
+          "source_kind": "normative_rule",
+          "pdf_print_page": "17",
+          "pdf_page": 17
+        },
+        {
+          "source_id": "engine",
+          "source_kind": "engine_implementation",
+          "file": "character/shiZhouNian.js",
+          "locator": "pack_skills"
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "engine",
+          "file": "character/shiZhouNian.js",
+          "locator": "pack_skills"
+        }
+      ],
+      "dynamic_test_ids": [],
+      "applicable_versions": [
+        "manual-10th-anniversary",
+        "engine-source"
+      ]
+    },
+    {
+      "schema_version": "knowledge.v1",
+      "id": "rule:timing.attack_stages",
+      "kind": "rule",
+      "source_tier": "difference",
+      "label": "伤害①~⑥时机",
+      "normative_rule": {
+        "source_id": "xingbei-10th-anniversary-manual",
+        "pdf_print_page": "18",
+        "pdf_page": 18,
+        "status": "source-registered; curated draft available",
+        "curated_file": "knowledge/curated/rules/rule-ontology-draft.json",
+        "curated_rule_id": "timing.attack_stages"
+      },
+      "engine_behavior": {
+        "source_id": "engine",
+        "file": "mode/xingBei.js",
+        "locator": "gongJiBefore",
+        "status": "static implementation reference"
+      },
+      "difference": {
+        "status": "to_review",
+        "notes": "规范资料与当前引擎尚未完成逐条动态裁定"
+      },
+      "adjudication_status": "needs_dynamic_test",
+      "provenance": [
+        {
+          "source_id": "xingbei-10th-anniversary-manual",
+          "source_kind": "normative_rule",
+          "pdf_print_page": "18",
+          "pdf_page": 18
+        },
+        {
+          "source_id": "engine",
+          "source_kind": "engine_implementation",
+          "file": "mode/xingBei.js",
+          "locator": "gongJiBefore"
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "engine",
+          "file": "mode/xingBei.js",
+          "locator": "gongJiBefore"
+        }
+      ],
+      "dynamic_test_ids": [],
+      "applicable_versions": [
+        "manual-10th-anniversary",
+        "engine-source"
+      ]
+    },
+    {
+      "schema_version": "knowledge.v1",
+      "id": "rule:effects.icons_and_overflow",
+      "kind": "rule",
+      "source_tier": "difference",
+      "label": "图标、基础效果、重复响应、条件效果与溢出",
+      "normative_rule": {
+        "source_id": "xingbei-10th-anniversary-manual",
+        "pdf_print_page": "19-20",
+        "pdf_page": 19,
+        "status": "source-registered; curated draft available",
+        "curated_file": "knowledge/curated/rules/rule-ontology-draft.json",
+        "curated_rule_id": "effects.icons_and_overflow"
+      },
+      "engine_behavior": {
+        "source_id": "engine",
+        "file": "card/xingBei.js",
+        "locator": "card definitions",
+        "status": "static implementation reference"
+      },
+      "difference": {
+        "status": "to_review",
+        "notes": "规范资料与当前引擎尚未完成逐条动态裁定"
+      },
+      "adjudication_status": "needs_dynamic_test",
+      "provenance": [
+        {
+          "source_id": "xingbei-10th-anniversary-manual",
+          "source_kind": "normative_rule",
+          "pdf_print_page": "19-20",
+          "pdf_page": 19
+        },
+        {
+          "source_id": "engine",
+          "source_kind": "engine_implementation",
+          "file": "card/xingBei.js",
+          "locator": "card definitions"
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "engine",
+          "file": "card/xingBei.js",
+          "locator": "card definitions"
+        }
+      ],
+      "dynamic_test_ids": [],
+      "applicable_versions": [
+        "manual-10th-anniversary",
+        "engine-source"
+      ]
+    }
+  ]
+}

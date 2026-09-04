@@ -1,0 +1,79 @@
+{
+  "schema_version": "knowledge.v1",
+  "generated_at": "2026-09-03T00:00:00.000+08:00",
+  "sources": [
+    {
+      "source_id": "xingbei-10th-anniversary-manual",
+      "source_tier": "normative_rule",
+      "path": "../星杯十周年说明书.pdf",
+      "pdf_print_pages": [
+        "00-21"
+      ],
+      "role": "十周年核心规范规则",
+      "status": "provided-local-source",
+      "sha256": "5F525E5F691915EAF756383D8E02EE768CB64D6822FE3DF34C6B43FAA5517779"
+    },
+    {
+      "source_id": "official-qa-and-supplements",
+      "source_tier": "normative_rule",
+      "url": "https://drive.google.com/drive/folders/1tFEuqt2cjeSkfuYKv7MD9_H2DLI-S8dV?usp=sharing",
+      "discovered_from": "xingbei-10th-anniversary-manual:print-page-20",
+      "role": "官方 Q&A、二扩规则、结算时间轴、技能表、改动表与星杯宇宙资料入口",
+      "status": "official-supplement-index"
+    },
+    {
+      "source_id": "official-no-action-v25.4.5",
+      "source_tier": "normative_rule",
+      "artifact_name": "星杯传说十周年二扩终末的无法行动 v25.4.5",
+      "parent_source_id": "official-qa-and-supplements",
+      "role": "逐角色无法行动与恶意抹杀行动可能裁定",
+      "status": "official-supplement-index"
+    },
+    {
+      "source_id": "official-timeline-v25",
+      "source_tier": "normative_rule",
+      "artifact_name": "十周年二扩用结算时间轴终末",
+      "parent_source_id": "official-qa-and-supplements",
+      "role": "阶段顺序与伤害①~⑥结算顺序",
+      "status": "official-supplement-index"
+    },
+    {
+      "source_id": "official-skill-table-v25",
+      "source_tier": "normative_rule",
+      "artifact_name": "星杯传说十周年至补完包技能表",
+      "parent_source_id": "official-qa-and-supplements",
+      "role": "角色、技能、版本和技能类型索引",
+      "status": "official-supplement-index"
+    },
+    {
+      "source_id": "official-change-log",
+      "source_tier": "normative_rule",
+      "artifact_name": "星杯历届改动",
+      "parent_source_id": "official-qa-and-supplements",
+      "role": "版本差异与印刷/技能改动",
+      "status": "official-supplement-index"
+    },
+    {
+      "source_id": "official-universe-index",
+      "source_tier": "normative_rule",
+      "artifact_name": "星杯宇宙",
+      "parent_source_id": "official-qa-and-supplements",
+      "role": "角色包、版本和扩展宇宙索引",
+      "status": "official-supplement-index"
+    },
+    {
+      "source_id": "engine",
+      "source_tier": "engine_implementation",
+      "path": "../noname_xingbei",
+      "role": "当前运行时实现",
+      "engine_fingerprint": "sha256:87969d59674cdcfda1060d35edbd924d12e20fa3d6aab60352726223cf18cc9d"
+    },
+    {
+      "source_id": "engine-docs",
+      "source_tier": "engine_implementation",
+      "path": "../noname_xingbei/docs",
+      "role": "开发说明/实现备注，不是规范规则",
+      "status": "reference-only"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://xingbei-arena.local/schema/decision.v1.json",
+  "title": "Xingbei Arena decision.v1 audit events",
+  "description": "Auditable decision outcomes emitted by the bridge; candidate ids are public, while hidden card identities remain confined to the request inbox.",
+  "type": "object",
+  "required": ["type", "schema_version", "match_id", "decision_id", "source", "valid", "latency_ms", "candidate_count"],
+  "properties": {
+    "type": { "const": "decision_audit" },
+    "schema_version": { "const": "decision.v1" },
+    "ts_ms": { "type": "integer", "minimum": 0 },
+    "match_id": { "type": "string", "minLength": 1 },
+    "rules_version": { "type": "string", "minLength": 1 },
+    "rules_profile": { "type": "string", "minLength": 1 },
+    "decision_id": { "type": "string", "minLength": 1 },
+    "decision_type": { "type": "string" },
+    "seat": { "type": ["string", "number", "null"] },
+    "side": { "enum": ["red", "blue", null] },
+    "source": { "enum": ["inline", "external", "fallback", "pass"] },
+    "valid": { "type": "boolean" },
+    "reason": { "type": ["string", "null"] },
+    "latency_ms": { "type": "number", "minimum": 0 },
+    "candidate_count": { "type": "integer", "minimum": 0 },
+    "candidate_ids": { "type": "array", "items": { "type": "string" } },
+    "candidate_features": { "type": "object", "additionalProperties": { "type": ["object", "null"] } },
+    "candidate_scores": { "type": "object", "additionalProperties": { "type": ["number", "null"] } },
+    "choice": { "type": ["string", "number", "array", "null"] },
+    "response": { "type": ["object", "null"] },
+    "behavior": {
+      "type": ["object", "null"],
+      "properties": {
+        "policy_id": { "type": ["string", "null"] },
+        "epsilon": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+        "choice_probability": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+        "probability_status": { "type": "string" }
+      }
+    }
+  },
+  "additionalProperties": true
+}

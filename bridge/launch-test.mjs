@@ -1,6 +1,7 @@
 // bridge/launch-test.mjs
 // 一次性实验: 探测 configprefix / 关键config, 然后尝试预置配置直接启动 xingBei(auto) 并报告卡点。
 import { chromium } from 'playwright';
+import { browserLaunchOptions } from './browser.mjs';
 import { writeFile, mkdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -9,7 +10,7 @@ import { startServer, PORT } from './server.mjs';
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const RUNTIME = join(__dirname, '..', 'runtime');
 const server = await startServer();
-const browser = await chromium.launch({ headless: true });
+const browser = await chromium.launch(browserLaunchOptions({ headless: true }));
 
 // ---- Pass 1: 读取 configprefix 与默认配置 ----
 const p1 = await browser.newPage();

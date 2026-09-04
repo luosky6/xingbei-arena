@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://xingbei-arena.local/schema/knowledge.v1.json",
+  "title": "Xingbei arena knowledge object",
+  "type": "object",
+  "required": ["schema_version", "id", "kind", "source_tier", "provenance", "adjudication_status"],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "id": {"type": "string", "minLength": 1},
+    "kind": {"type": "string", "enum": ["pack", "character", "skill", "card", "event", "timing", "rule", "synergy", "seating"]},
+    "source_tier": {"type": "string", "enum": ["normative_rule", "engine_implementation", "difference", "adjudication"]},
+    "provenance": {"type": "array", "items": {"type": "object", "required": ["source_id", "source_kind"], "properties": {"source_id": {"type": "string"}, "source_kind": {"type": "string"}, "file": {"type": "string"}, "line": {"type": ["integer", "null"]}, "pdf_print_page": {"type": ["string", "null"]}, "pdf_page": {"type": ["integer", "null"]}, "locator": {"type": ["string", "null"]}}}},
+    "source_refs": {"type": "array", "items": {"type": "object"}},
+    "normative_rule": {"type": ["string", "object", "null"]},
+    "engine_behavior": {"type": ["string", "object", "null"]},
+    "difference": {"type": ["string", "object", "null"]},
+    "adjudication_status": {"type": "string", "enum": ["confirmed", "hypothesis", "conflict", "unverified", "not_applicable", "needs_dynamic_test"]},
+    "dynamic_test_ids": {"type": "array", "items": {"type": "string"}},
+    "applicable_versions": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,25 @@
+{
+  "schema_version": "dynamic-fixtures.v1",
+  "rules_version": "normative-rule-model.v1",
+  "source_refs": [
+    "xingbei-10th-anniversary-manual",
+    "official-timeline-v25",
+    "official-no-action-v25.4.5",
+    "engine-trajectory-v1"
+  ],
+  "trajectory_prefix": "todo_round1_20260903_",
+  "fixtures": [
+    { "fixture_id": "engine_damage_draw_parent_order", "kind": "pattern", "pattern": "damage_to_draw_same_parent", "minimum_evidence": 1, "minimum_matches": 2, "minimum_pass_rate": 0.9, "assertion": "damage starts before its child draw, draw finishes before damage" },
+    { "fixture_id": "engine_damage_response_stage_order", "kind": "pattern", "pattern": "damage_response_stage_order", "minimum_evidence": 1, "minimum_matches": 2, "minimum_pass_rate": 0.9, "assertion": "zaoChengShangHai precedes chengShouShangHaiAfter under the same damage" },
+    { "fixture_id": "engine_use_card_damage_child", "kind": "pattern", "pattern": "use_card_to_damage_child", "minimum_evidence": 1, "minimum_matches": 2, "assertion": "damage is a descendant after useCard" },
+    { "fixture_id": "engine_bao_pai_nested_after_use_card", "kind": "pattern", "pattern": "bao_pai_nested_after_use_card", "minimum_evidence": 1, "minimum_matches": 2, "assertion": "bao-pai branch is nested after useCard" },
+    { "fixture_id": "engine_resource_purchase_path", "kind": "pattern", "pattern": "resource_purchase_path", "minimum_evidence": 1, "minimum_matches": 1, "assertion": "purchase event is observed in a complete trajectory" },
+    { "fixture_id": "engine_resource_synthesize_path", "kind": "pattern", "pattern": "resource_synthesize_path", "minimum_evidence": 1, "minimum_matches": 1, "assertion": "synthesis event is observed in a complete trajectory" },
+    { "fixture_id": "engine_resource_refine_path", "kind": "pattern", "pattern": "resource_refine_path", "minimum_evidence": 1, "minimum_matches": 1, "assertion": "refinement event is observed in a complete trajectory" },
+    { "fixture_id": "event_area_attack_and_response", "kind": "event_area", "area": "attack_and_response", "required_event_names": ["gongJiOrFaShu", "gongJi", "faShu", "yingZhan", "_yingZhan", "damage"], "minimum_matches": 1, "assertion": "all attack/response event names are present in the evidence corpus" },
+    { "fixture_id": "event_area_special_combat", "kind": "event_area", "area": "special_combat", "required_event_names": ["anMie", "shengGuang", "shengDun", "moDan"], "minimum_matches": 1, "assertion": "all special-combat event names are present in the evidence corpus" },
+    { "fixture_id": "event_area_hand_and_morale", "kind": "event_area", "area": "hand_and_morale", "required_event_names": ["draw", "_baoPai", "changeShiQi", "changeZhiLiao"], "minimum_matches": 1, "assertion": "all hand/morale event names are present in the evidence corpus" },
+    { "fixture_id": "event_area_resources_and_cups", "kind": "event_area", "area": "resources_and_cups", "required_event_names": ["_gouMai", "_heCheng_backup", "_tiLian_backup", "changeXingBei", "changeNengLiang", "changeZhiShiWu", "changeZhanJi"], "minimum_matches": 1, "assertion": "all resource/cup event names are present in the evidence corpus" },
+    { "fixture_id": "event_area_timing_responses", "kind": "event_area", "area": "timing_responses", "required_event_names": ["damage", "yingZhan", "_yingZhan_weiMingZhong", "shengGuang", "_shengGuang_weiMingZhong", "shengDun", "_shengDun"], "minimum_matches": 1, "assertion": "all timing/response event names are present in the evidence corpus" }
+  ]
+}

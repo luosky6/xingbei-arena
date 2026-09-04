@@ -1,0 +1,128 @@
+{
+  "schema_version": "rule-fixtures.v1",
+  "rules_version": "normative-rule-model.v1",
+  "source_refs": [
+    "xingbei-10th-anniversary-manual",
+    "official-timeline-v25",
+    "official-no-action-v25.4.5"
+  ],
+  "engine_status": "not_run",
+  "fixtures": [
+    {
+      "fixture_id": "setup_core_4",
+      "operation": "validateSetup",
+      "args": { "players": 4 },
+      "expected": { "profile": "core10th", "players": 4, "morale": 15, "cupsToWin": 5 },
+      "source_refs": ["xingbei-10th-anniversary-manual"]
+    },
+    {
+      "fixture_id": "setup_supplement_8",
+      "operation": "validateSetup",
+      "args": { "players": 8, "profile": "supplement-8p" },
+      "expected": { "profile": "supplement-8p", "players": 8, "morale": 18, "cupsToWin": 5 },
+      "source_refs": ["official-qa-and-supplements"]
+    },
+    {
+      "fixture_id": "victory_morale_zero",
+      "operation": "victoryLines",
+      "args": { "ownMorale": 15, "opponentMorale": 0, "ownCups": 0, "opponentCups": 0 },
+      "expected": ["opponent_morale_zero"],
+      "source_refs": ["xingbei-10th-anniversary-manual"]
+    },
+    {
+      "fixture_id": "victory_simultaneous",
+      "operation": "victoryLines",
+      "args": { "ownMorale": 15, "opponentMorale": 0, "ownCups": 5, "opponentCups": 0 },
+      "expected": ["simultaneous", "opponent_morale_zero", "own_cups_reached"],
+      "source_refs": ["xingbei-10th-anniversary-manual", "official-qa-and-supplements"]
+    },
+    {
+      "fixture_id": "draw_without_overflow",
+      "operation": "resolveDraw",
+      "args": { "handCount": 2, "drawCount": 3, "handLimit": 6 },
+      "expected": { "handBefore": 2, "draws": 3, "handAfter": 5, "overflow": 0, "moraleLoss": 0 },
+      "source_refs": ["xingbei-10th-anniversary-manual"]
+    },
+    {
+      "fixture_id": "draw_overflow_morale",
+      "operation": "resolveDraw",
+      "args": { "handCount": 5, "drawCount": 3, "handLimit": 6 },
+      "expected": { "handBefore": 5, "draws": 3, "handAfter": 6, "overflow": 2, "moraleLoss": 2 },
+      "source_refs": ["xingbei-10th-anniversary-manual"]
+    },
+    {
+      "fixture_id": "damage_heal_then_overflow",
+      "operation": "resolveDamage",
+      "args": { "damage": 4, "healing": 1, "handCount": 5 },
+      "expected": { "damageKind": "attack", "createdDamage": 4, "healingUsed": 1, "actualDamage": 3, "damageDraw": 3, "handBefore": 5, "draws": 3, "handAfter": 6, "overflow": 2, "moraleLoss": 2 },
+      "source_refs": ["official-timeline-v25", "xingbei-10th-anniversary-manual"]
+    },
+    {
+      "fixture_id": "buy_requires_no_overflow",
+      "operation": "canBuy",
+      "args": { "handCount": 3 },
+      "expected": true,
+      "source_refs": ["xingbei-10th-anniversary-manual"]
+    },
+    {
+      "fixture_id": "buy_rejects_overflow",
+      "operation": "canBuy",
+      "args": { "handCount": 4 },
+      "expected": false,
+      "source_refs": ["xingbei-10th-anniversary-manual"]
+    },
+    {
+      "fixture_id": "synthesize_cup_and_morale",
+      "operation": "synthesize",
+      "args": { "teamStones": 3, "ownCups": 4, "opponentMorale": 5, "handCount": 3 },
+      "expected": { "legal": true, "teamStones": 0, "ownCups": 5, "opponentMorale": 4, "draw": { "handBefore": 3, "draws": 3, "handAfter": 6, "overflow": 0, "moraleLoss": 0 } },
+      "source_refs": ["xingbei-10th-anniversary-manual"]
+    },
+    {
+      "fixture_id": "synthesize_rejects_overflow",
+      "operation": "synthesize",
+      "args": { "teamStones": 3, "ownCups": 4, "opponentMorale": 5, "handCount": 4 },
+      "expected": { "legal": false, "reason": "insufficient_stones_or_hand_overflow" },
+      "source_refs": ["xingbei-10th-anniversary-manual"]
+    },
+    {
+      "fixture_id": "refine_caps_at_energy_limit",
+      "operation": "refine",
+      "args": { "teamStones": 10, "energy": 2, "amount": 3 },
+      "expected": { "amount": 1, "teamStones": 9, "energy": 3 },
+      "source_refs": ["xingbei-10th-anniversary-manual"]
+    },
+    {
+      "fixture_id": "no_action_taunt_skip",
+      "operation": "noActionEligibility",
+      "args": { "normalActions": 0, "mandatoryStartsPending": 1, "taunted": true },
+      "expected": { "eligible": true, "reason": "taunt_skip_action_phase", "canRefine": false, "postDeclaration": { "mode": "skip_action_phase", "discardHand": false, "drawEqual": false, "specialActionsAllowed": false } },
+      "source_refs": ["official-no-action-v25.4.5"]
+    },
+    {
+      "fixture_id": "seat_order_clockwise",
+      "operation": "seatOrder",
+      "positional": [[0, 1, 2, 3], 2, "clockwise"],
+      "expected": [3, 0, 1],
+      "source_refs": ["xingbei-10th-anniversary-manual"]
+    },
+    {
+      "fixture_id": "timing_stage_and_seat_tiebreak",
+      "operation": "orderTimingItems",
+      "positional": [
+        [
+          { "stage": "⑤", "seat": 3, "id": "late" },
+          { "stage": "③", "seat": 2, "id": "created" },
+          { "stage": "⑤", "seat": 1, "id": "first" }
+        ],
+        { "seatOrder": [1, 2, 3] }
+      ],
+      "expected": [
+        { "stage": "③", "seat": 2, "id": "created" },
+        { "stage": "⑤", "seat": 1, "id": "first" },
+        { "stage": "⑤", "seat": 3, "id": "late" }
+      ],
+      "source_refs": ["official-timeline-v25"]
+    }
+  ]
+}

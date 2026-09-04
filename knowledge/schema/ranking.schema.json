@@ -1,0 +1,48 @@
+{
+  "$id": "https://xingbei-arena.local/schema/ranking.v1.json",
+  "title": "Xingbei Arena public candidate ranking row",
+  "type": "object",
+  "required": ["schema_version", "row_id", "match_id", "decision_type", "candidates", "label", "behavior", "provenance"],
+  "properties": {
+    "schema_version": { "const": "ranking.v1" },
+    "row_id": { "type": "string", "minLength": 1 },
+    "match_id": { "type": "string", "minLength": 1 },
+    "rules_version": { "type": ["string", "null"] },
+    "rules_profile": { "type": ["string", "null"] },
+    "decision_id": { "type": ["string", "null"] },
+    "decision_type": { "type": "string", "minLength": 1 },
+    "seat": {},
+    "side": { "enum": ["red", "blue", null] },
+    "candidates": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "index", "features", "chosen"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "index": { "type": "integer", "minimum": 0 },
+          "features": { "type": "object" },
+          "baseline_score": { "type": ["number", "null"] },
+          "chosen": { "type": "boolean" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "label": {
+      "type": "object", "required": ["chosen_id", "outcome"],
+      "properties": { "chosen_id": { "type": "string" }, "outcome": { "type": ["integer", "null"], "enum": [-1, 0, 1, null] } },
+      "additionalProperties": false
+    },
+    "behavior": {
+      "type": "object", "required": ["source", "probability", "probability_status"],
+      "properties": { "source": { "type": "string" }, "probability": { "type": ["number", "null"], "minimum": 0, "maximum": 1 }, "probability_status": { "type": "string" } },
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "object", "required": ["audit_schema"],
+      "properties": { "audit_schema": { "const": "decision.v1" }, "winner_side": { "type": ["string", "null"] }, "engine_fingerprint": { "type": ["string", "null"] }, "policy_id": { "type": ["string", "null"] } },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://xingbei-arena.local/schema/ranking-split-manifest.v1.json",
+  "title": "Xingbei Arena grouped ranking split manifest",
+  "type": "object",
+  "required": ["schema_version", "input", "output_dir", "ratios", "groups", "labeled_rows", "unlabeled_rows", "ready_for_supervised_training"],
+  "properties": {
+    "schema_version": { "const": "ranking-split-manifest.v1" },
+    "input": { "type": "string", "minLength": 1 },
+    "output_dir": { "type": "string", "minLength": 1 },
+    "ratios": {
+      "type": "object", "required": ["train", "valid", "test"],
+      "properties": { "train": { "type": "number", "minimum": 0 }, "valid": { "type": "number", "minimum": 0 }, "test": { "type": "number", "minimum": 0 } },
+      "additionalProperties": false
+    },
+    "groups": { "type": "object", "additionalProperties": { "type": "object", "required": ["matches", "rows"], "properties": { "matches": { "type": "array", "items": { "type": "string" } }, "rows": { "type": "integer", "minimum": 0 } }, "additionalProperties": false } },
+    "labeled_rows": { "type": "integer", "minimum": 0 },
+    "unlabeled_rows": { "type": "integer", "minimum": 0 },
+    "ready_for_supervised_training": { "type": "boolean" },
+    "leakage_policy": { "type": "string" }
+  },
+  "additionalProperties": false
+}

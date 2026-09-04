@@ -1,0 +1,70 @@
+/* Runtime-only modern theme. Scoped under body.xb-modern so the legacy UI
+   remains a reversible fallback and no engine stylesheet is modified. */
+:root {
+  --xb-bg: #0b1020;
+  --xb-surface: rgba(20, 29, 52, .92);
+  --xb-surface-raised: rgba(34, 47, 78, .96);
+  --xb-border: rgba(154, 176, 224, .25);
+  --xb-text: #eef3ff;
+  --xb-muted: #9eadd0;
+  --xb-red: #ff6d8e;
+  --xb-blue: #70b8ff;
+  --xb-accent: #9d8cff;
+  --xb-radius: 14px;
+  --xb-shadow: 0 16px 40px rgba(0, 0, 0, .32);
+}
+
+body.xb-modern {
+  background: radial-gradient(circle at 20% 0%, #1c2750 0, var(--xb-bg) 48%, #070a14 100%) !important;
+  color: var(--xb-text);
+  font-family: Inter, "Microsoft YaHei", system-ui, sans-serif;
+}
+
+body.xb-modern #arena,
+body.xb-modern .arena,
+body.xb-modern #ui { color: var(--xb-text); }
+
+body.xb-modern .player,
+body.xb-modern .dialog,
+body.xb-modern .control,
+body.xb-modern .statusbar,
+body.xb-modern .menu-container {
+  border: 1px solid var(--xb-border);
+  border-radius: var(--xb-radius);
+  box-shadow: var(--xb-shadow);
+  backdrop-filter: blur(14px);
+}
+
+body.xb-modern .player { background: var(--xb-surface); transition: transform .18s ease, border-color .18s ease; }
+body.xb-modern .player:hover { transform: translateY(-2px); border-color: rgba(157, 140, 255, .7); }
+/* Do not infer team from seat number: 2v2/3v3/4v4 seat layouts differ. */
+body.xb-modern .player .identity,
+body.xb-modern .player .name { color: var(--xb-text); }
+body.xb-modern .player.red .identity,
+body.xb-modern .player.red .name { color: var(--xb-red); }
+body.xb-modern .player.blue .identity,
+body.xb-modern .player.blue .name { color: var(--xb-blue); }
+
+body.xb-modern .card,
+body.xb-modern .button,
+body.xb-modern .control { border-radius: 10px; }
+body.xb-modern .button.selected,
+body.xb-modern .control.selected { outline: 2px solid var(--xb-accent); outline-offset: 2px; }
+body.xb-modern .dialog { background: var(--xb-surface-raised); color: var(--xb-text); }
+body.xb-modern .dialog .caption,
+body.xb-modern .dialog .prompt { color: var(--xb-muted); }
+
+@media (max-width: 1100px) {
+  body.xb-modern .player { transform: scale(.94); transform-origin: center; }
+  body.xb-modern .card { --card-scale: .9; }
+}
+
+@media (max-width: 760px) and (orientation: landscape) {
+  body.xb-modern .player { transform: scale(.82); }
+  body.xb-modern .dialog { max-width: 92vw; max-height: 82vh; overflow: auto; }
+  body.xb-modern .control { min-height: 42px; min-width: 42px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.xb-modern *, body.xb-modern *::before, body.xb-modern *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}

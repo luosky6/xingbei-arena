@@ -1,0 +1,485 @@
+{
+  "schema_version": "knowledge.v1",
+  "generated_at": "2026-09-03T00:00:00.000+08:00",
+  "engine_fingerprint": "sha256:87969d59674cdcfda1060d35edbd924d12e20fa3d6aab60352726223cf18cc9d",
+  "objects": [
+    {
+      "schema_version": "knowledge.v1",
+      "id": "card:anMie",
+      "kind": "card",
+      "name": "anMie",
+      "type": "gongJi",
+      "properties": [
+        "type",
+        "enable",
+        "fullskin",
+        "selectTarget",
+        "cardPrompt",
+        "filterTarget",
+        "content",
+        "ai"
+      ],
+      "description": "主动攻击或应战其他攻击时打出。\\n命中时造成2点攻击伤害。\\n暗灭不能被应战。",
+      "tags": [
+        "damage"
+      ],
+      "source_tier": "engine_implementation",
+      "provenance": [
+        {
+          "source_id": "engine",
+          "file": "card/xingBei.js",
+          "line": 7,
+          "locator": "card declaration",
+          "sha256": "59227cb8b4b72f406b09a5fb34703cdba8e009790054af0ed39d2d1988e5a785"
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "engine",
+          "file": "card/xingBei.js",
+          "line": 7,
+          "locator": "card declaration",
+          "sha256": "59227cb8b4b72f406b09a5fb34703cdba8e009790054af0ed39d2d1988e5a785"
+        }
+      ],
+      "applicable_versions": [
+        "engine-source"
+      ],
+      "adjudication_status": "needs_dynamic_test"
+    },
+    {
+      "schema_version": "knowledge.v1",
+      "id": "card:diLieZhan",
+      "kind": "card",
+      "name": "diLieZhan",
+      "type": "gongJi",
+      "properties": [
+        "type",
+        "fullskin",
+        "enable",
+        "selectTarget",
+        "cardPrompt",
+        "filterTarget",
+        "content",
+        "ai"
+      ],
+      "description": "主动攻击或应战地系攻击时打出。\\n命中时造成2点攻击伤害。",
+      "tags": [
+        "damage"
+      ],
+      "source_tier": "engine_implementation",
+      "provenance": [
+        {
+          "source_id": "engine",
+          "file": "card/xingBei.js",
+          "line": 161,
+          "locator": "card declaration",
+          "sha256": "59227cb8b4b72f406b09a5fb34703cdba8e009790054af0ed39d2d1988e5a785"
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "engine",
+          "file": "card/xingBei.js",
+          "line": 161,
+          "locator": "card declaration",
+          "sha256": "59227cb8b4b72f406b09a5fb34703cdba8e009790054af0ed39d2d1988e5a785"
+        }
+      ],
+      "applicable_versions": [
+        "engine-source"
+      ],
+      "adjudication_status": "needs_dynamic_test"
+    },
+    {
+      "schema_version": "knowledge.v1",
+      "id": "card:fengShenZhan",
+      "kind": "card",
+      "name": "fengShenZhan",
+      "type": "gongJi",
+      "properties": [
+        "type",
+        "enable",
+        "fullskin",
+        "selectTarget",
+        "cardPrompt",
+        "filterTarget",
+        "content",
+        "ai"
+      ],
+      "description": "主动攻击或应战风系攻击时打出。\\n命中时造成2点攻击伤害。",
+      "tags": [
+        "damage"
+      ],
+      "source_tier": "engine_implementation",
+      "provenance": [
+        {
+          "source_id": "engine",
+          "file": "card/xingBei.js",
+          "line": 99,
+          "locator": "card declaration",
+          "sha256": "59227cb8b4b72f406b09a5fb34703cdba8e009790054af0ed39d2d1988e5a785"
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "engine",
+          "file": "card/xingBei.js",
+          "line": 99,
+          "locator": "card declaration",
+          "sha256": "59227cb8b4b72f406b09a5fb34703cdba8e009790054af0ed39d2d1988e5a785"
+        }
+      ],
+      "applicable_versions": [
+        "engine-source"
+      ],
+      "adjudication_status": "needs_dynamic_test"
+    },
+    {
+      "schema_version": "knowledge.v1",
+      "id": "card:huoYanZhan",
+      "kind": "card",
+      "name": "huoYanZhan",
+      "type": "gongJi",
+      "properties": [
+        "type",
+        "enable",
+        "fullskin",
+        "selectTarget",
+        "cardPrompt",
+        "filterTarget",
+        "content",
+        "ai"
+      ],
+      "description": "主动攻击或应战火系攻击时打出。\\n命中时造成2点攻击伤害。",
+      "tags": [
+        "damage"
+      ],
+      "source_tier": "engine_implementation",
+      "provenance": [
+        {
+          "source_id": "engine",
+          "file": "card/xingBei.js",
+          "line": 68,
+          "locator": "card declaration",
+          "sha256": "59227cb8b4b72f406b09a5fb34703cdba8e009790054af0ed39d2d1988e5a785"
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "engine",
+          "file": "card/xingBei.js",
+          "line": 68,
+          "locator": "card declaration",
+          "sha256": "59227cb8b4b72f406b09a5fb34703cdba8e009790054af0ed39d2d1988e5a785"
+        }
+      ],
+      "applicable_versions": [
+        "engine-source"
+      ],
+      "adjudication_status": "needs_dynamic_test"
+    },
+    {
+      "schema_version": "knowledge.v1",
+      "id": "card:leiGuangZhan",
+      "kind": "card",
+      "name": "leiGuangZhan",
+      "type": "gongJi",
+      "properties": [
+        "type",
+        "enable",
+        "fullskin",
+        "selectTarget",
+        "cardPrompt",
+        "filterTarget",
+        "content",
+        "ai"
+      ],
+      "description": "主动攻击或应战雷系攻击时打出。\\n命中时造成2点攻击伤害。",
+      "tags": [
+        "damage"
+      ],
+      "source_tier": "engine_implementation",
+      "provenance": [
+        {
+          "source_id": "engine",
+          "file": "card/xingBei.js",
+          "line": 130,
+          "locator": "card declaration",
+          "sha256": "59227cb8b4b72f406b09a5fb34703cdba8e009790054af0ed39d2d1988e5a785"
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "engine",
+          "file": "card/xingBei.js",
+          "line": 130,
+          "locator": "card declaration",
+          "sha256": "59227cb8b4b72f406b09a5fb34703cdba8e009790054af0ed39d2d1988e5a785"
+        }
+      ],
+      "applicable_versions": [
+        "engine-source"
+      ],
+      "adjudication_status": "needs_dynamic_test"
+    },
+    {
+      "schema_version": "knowledge.v1",
+      "id": "card:moDan",
+      "kind": "card",
+      "name": "moDan",
+      "type": "faShu",
+      "properties": [
+        "type",
+        "enable",
+        "fullskin",
+        "selectTarget",
+        "filterTarget",
+        "content",
+        "ai"
+      ],
+      "description": null,
+      "tags": [
+        "damage"
+      ],
+      "source_tier": "engine_implementation",
+      "provenance": [
+        {
+          "source_id": "engine",
+          "file": "card/xingBei.js",
+          "line": 309,
+          "locator": "card declaration",
+          "sha256": "59227cb8b4b72f406b09a5fb34703cdba8e009790054af0ed39d2d1988e5a785"
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "engine",
+          "file": "card/xingBei.js",
+          "line": 309,
+          "locator": "card declaration",
+          "sha256": "59227cb8b4b72f406b09a5fb34703cdba8e009790054af0ed39d2d1988e5a785"
+        }
+      ],
+      "applicable_versions": [
+        "engine-source"
+      ],
+      "adjudication_status": "needs_dynamic_test"
+    },
+    {
+      "schema_version": "knowledge.v1",
+      "id": "card:shengDun",
+      "kind": "card",
+      "name": "shengDun",
+      "type": "faShu",
+      "properties": [
+        "type",
+        "fullskin",
+        "enable",
+        "selectTarget",
+        "filterTarget",
+        "content",
+        "ai"
+      ],
+      "description": null,
+      "tags": [
+        "damage"
+      ],
+      "source_tier": "engine_implementation",
+      "provenance": [
+        {
+          "source_id": "engine",
+          "file": "card/xingBei.js",
+          "line": 207,
+          "locator": "card declaration",
+          "sha256": "59227cb8b4b72f406b09a5fb34703cdba8e009790054af0ed39d2d1988e5a785"
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "engine",
+          "file": "card/xingBei.js",
+          "line": 207,
+          "locator": "card declaration",
+          "sha256": "59227cb8b4b72f406b09a5fb34703cdba8e009790054af0ed39d2d1988e5a785"
+        }
+      ],
+      "applicable_versions": [
+        "engine-source"
+      ],
+      "adjudication_status": "needs_dynamic_test"
+    },
+    {
+      "schema_version": "knowledge.v1",
+      "id": "card:shengGuang",
+      "kind": "card",
+      "name": "shengGuang",
+      "type": "faShu",
+      "properties": [
+        "type",
+        "fullskin",
+        "notarget",
+        "content",
+        "ai"
+      ],
+      "description": null,
+      "tags": [
+        "damage"
+      ],
+      "source_tier": "engine_implementation",
+      "provenance": [
+        {
+          "source_id": "engine",
+          "file": "card/xingBei.js",
+          "line": 191,
+          "locator": "card declaration",
+          "sha256": "59227cb8b4b72f406b09a5fb34703cdba8e009790054af0ed39d2d1988e5a785"
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "engine",
+          "file": "card/xingBei.js",
+          "line": 191,
+          "locator": "card declaration",
+          "sha256": "59227cb8b4b72f406b09a5fb34703cdba8e009790054af0ed39d2d1988e5a785"
+        }
+      ],
+      "applicable_versions": [
+        "engine-source"
+      ],
+      "adjudication_status": "needs_dynamic_test"
+    },
+    {
+      "schema_version": "knowledge.v1",
+      "id": "card:shuiLianZhan",
+      "kind": "card",
+      "name": "shuiLianZhan",
+      "type": "gongJi",
+      "properties": [
+        "type",
+        "enable",
+        "fullskin",
+        "selectTarget",
+        "cardPrompt",
+        "filterTarget",
+        "content",
+        "ai"
+      ],
+      "description": "主动攻击或应战水系攻击时打出。\\n命中时造成2点攻击伤害。",
+      "tags": [
+        "damage"
+      ],
+      "source_tier": "engine_implementation",
+      "provenance": [
+        {
+          "source_id": "engine",
+          "file": "card/xingBei.js",
+          "line": 37,
+          "locator": "card declaration",
+          "sha256": "59227cb8b4b72f406b09a5fb34703cdba8e009790054af0ed39d2d1988e5a785"
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "engine",
+          "file": "card/xingBei.js",
+          "line": 37,
+          "locator": "card declaration",
+          "sha256": "59227cb8b4b72f406b09a5fb34703cdba8e009790054af0ed39d2d1988e5a785"
+        }
+      ],
+      "applicable_versions": [
+        "engine-source"
+      ],
+      "adjudication_status": "needs_dynamic_test"
+    },
+    {
+      "schema_version": "knowledge.v1",
+      "id": "card:xuRuo",
+      "kind": "card",
+      "name": "xuRuo",
+      "type": "faShu",
+      "properties": [
+        "type",
+        "fullskin",
+        "enable",
+        "selectTarget",
+        "filterTarget",
+        "content",
+        "ai"
+      ],
+      "description": null,
+      "tags": [
+        "damage"
+      ],
+      "source_tier": "engine_implementation",
+      "provenance": [
+        {
+          "source_id": "engine",
+          "file": "card/xingBei.js",
+          "line": 244,
+          "locator": "card declaration",
+          "sha256": "59227cb8b4b72f406b09a5fb34703cdba8e009790054af0ed39d2d1988e5a785"
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "engine",
+          "file": "card/xingBei.js",
+          "line": 244,
+          "locator": "card declaration",
+          "sha256": "59227cb8b4b72f406b09a5fb34703cdba8e009790054af0ed39d2d1988e5a785"
+        }
+      ],
+      "applicable_versions": [
+        "engine-source"
+      ],
+      "adjudication_status": "needs_dynamic_test"
+    },
+    {
+      "schema_version": "knowledge.v1",
+      "id": "card:zhongDu",
+      "kind": "card",
+      "name": "zhongDu",
+      "type": "faShu",
+      "properties": [
+        "audio",
+        "fullskin",
+        "type",
+        "enable",
+        "selectTarget",
+        "filterTarget",
+        "content",
+        "ai"
+      ],
+      "description": null,
+      "tags": [
+        "damage"
+      ],
+      "source_tier": "engine_implementation",
+      "provenance": [
+        {
+          "source_id": "engine",
+          "file": "card/xingBei.js",
+          "line": 282,
+          "locator": "card declaration",
+          "sha256": "59227cb8b4b72f406b09a5fb34703cdba8e009790054af0ed39d2d1988e5a785"
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "engine",
+          "file": "card/xingBei.js",
+          "line": 282,
+          "locator": "card declaration",
+          "sha256": "59227cb8b4b72f406b09a5fb34703cdba8e009790054af0ed39d2d1988e5a785"
+        }
+      ],
+      "applicable_versions": [
+        "engine-source"
+      ],
+      "adjudication_status": "needs_dynamic_test"
+    }
+  ]
+}

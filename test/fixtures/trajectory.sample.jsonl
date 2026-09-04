@@ -1,0 +1,4 @@
+{"type":"trajectory_meta","match_id":"fixture","rules_version":"fixture-rules-v1","engine_fingerprint":"sha256:fixture","config_hash":"fixture-config","policy_id":"fixture-policy","schema_version":"trajectory.v1","record_count":2,"dropped_count":0}
+{"schema_version":"trajectory.v1","match_id":"fixture","rules_version":"fixture-rules-v1","seq":1,"ts_ms":1,"kind":"event_create","hook":"GameEvent","event_id":"e1","event":{"name":"phase"}}
+{"schema_version":"trajectory.v1","match_id":"fixture","rules_version":"fixture-rules-v1","seq":2,"ts_ms":2,"kind":"event_finish","hook":"GameEvent","event_id":"e1"}
+{"type":"trajectory_end","match_id":"fixture","rules_version":"fixture-rules-v1","engine_fingerprint":"sha256:fixture","config_hash":"fixture-config","policy_id":"fixture-policy","schema_version":"trajectory.v1","record_count":2,"dropped_count":0}

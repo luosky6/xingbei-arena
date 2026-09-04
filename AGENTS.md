@@ -2,25 +2,26 @@
 
 > 本文件是整个项目的**唯一主提示词（master prompt）+ 约束 + 项目说明书**。
 > 运行环境：**GitHub Copilot CLI**（agentic `copilot`）。可直接作为 `AGENTS.md` 放在项目根目录被自动加载，或用 `copilot -p "$(cat AGENTS.md) ..."` 注入。
-> 规则参考（人类可读）：[../星杯模式_Agent对战指南.md](../星杯模式_Agent对战指南.md)
-> 引擎只读副本：`../noname_xingbei_clone/`（**禁止改动，禁止任何 git 操作**）
+> 规范规则基线：[../星杯十周年说明书.pdf](../星杯十周年说明书.pdf)，并由对应版本卡面、官方 Q&A、结算时间轴和勘误补充。
+> 规则治理说明：[docs/星杯十周年规则基线与源码差异.md](docs/星杯十周年规则基线与源码差异.md)
+> 引擎只读副本：`../noname_xingbei/`（可用 `XB_ENGINE_ROOT` 覆盖；**禁止改动，禁止任何 git 操作**）
 
 ---
 
 ## 0. 一句话目标
 
-让一组 LLM 子智能体在**真实游戏引擎裁判下**逐手对弈星杯卡牌模式（**采用方案②：引擎当规则裁判，LLM 负责出牌决策，不使用引擎内置 AI**），在对局过程中**边打边学规则与操作**，并把所学**持续蒸馏成多个分类 skill**，最终发现强势套路（OP）。
+让一组 LLM 子智能体在**真实游戏引擎推进下**逐手对弈星杯卡牌模式（引擎执行当前实现，LLM 负责出牌决策，不使用引擎内置 AI），持续对照官方规范验证规则与实现，并把有来源、有测试、有对局证据的知识蒸馏为分类 skill，最终发现并复核强势套路（OP）。
 
 ---
 
 ## 1. 核心原则（不可违背）
 
-1. **引擎是规则的唯一真理来源。** 合法性、伤害结算、士气/星石/星杯变化、触发时点全部由引擎裁定。**LLM 永远不得自行裁判规则或假设结算结果。**
+1. **规范规则与引擎实现分层。** 说明书、对应版本卡面、官方 Q&A/结算表/勘误定义规范规则；引擎只裁定当前自动对局的实际推进。两者冲突时必须记录 `difference` 并进入裁定，禁止把引擎行为自动提升为官方规则，也禁止 LLM 擅自改写运行中的结算结果。
 2. **不使用引擎内置 AI。** 所有玩家决策来自 LLM 子智能体（通过决策桥接口）。引擎的 `ai` 决策被桥接旁路。
 3. **决策只能从引擎提供的 `legal_options` 中选。** 不得发明、不得选非法项。
-4. **边打边学。** 每次决策时若观察到新规则/机制，记录为 `rule_notes`，由蒸馏环节固化进 skill。
+4. **边打边验证。** 每次决策时若观察到新机制或规范/实现差异，记录为 `rule_notes`；未经权威来源或规则测试裁定，只能作为假设，不能固化为规范规则。
 5. **证据驱动蒸馏。** 写进 skill 的结论必须带样本/对局证据与置信度，可被后续推翻。
-6. **只读引擎、不碰库。** 不修改 `noname_xingbei_clone/` 内任何文件，不执行 git 命令，所有产物写在本项目目录内。
+6. **只读引擎、不碰库。** 不修改 `noname_xingbei/` 内任何文件，不执行 git 命令，所有产物写在本项目目录内。
 
 ---
 
@@ -31,7 +32,7 @@ flowchart TB
     MA[MainAgent 编排器] -->|排期/分配| GE
     MA --> DST
     subgraph GE[对局层]
-      ENG[noname 引擎<br/>规则裁判] <-->|决策桥 IO| BR[Bridge 进程]
+      ENG[noname 引擎<br/>运行时裁判] <-->|决策桥 IO| BR[Bridge 进程]
     end
     BR -->|DecisionRequest| P1[Player子智能体 座位1..N]
     P1 -->|DecisionResponse| BR
@@ -46,7 +47,8 @@ flowchart TB
 
 | 组件 | 是 LLM 吗 | 职责 |
 |---|---|---|
-| **noname 引擎** | 否 | 跑游戏、裁判规则、在每个决策点暂停 |
+| **官方规则知识库** | 否 | 保存版本化规范规则、来源、勘误与测试期望；不直接推进对局 |
+| **noname 引擎** | 否 | 跑游戏、执行当前实现、在每个决策点暂停；其行为与规范规则分开记录 |
 | **Bridge 进程** | 否 | 在引擎决策点与 LLM 之间收发 JSON；校验合法性；落盘日志 |
 | **MainAgent** | 是 | 制定对局矩阵、分配座位/策略、驱动迭代循环、管理 skill 库版本 |
 | **Player 子智能体** | 是 | 收到 `DecisionRequest` → 查 skill 库 → 返回 `DecisionResponse`（含 rule_notes）|
@@ -85,15 +87,15 @@ flowchart TB
   "state": {
     "self": { "hand": [ {"name":"...","element":"...","fate":"...","convertSkills":["..."]} ],
               "handLimit": 6, "zhiLiao": 1, "energy": 2,
-              "markers": {"jianQi": 0}, "statusEffects": [] },
+              "markers": {"jianQi": 0}, "statusEffects": [], "skills": ["..."] },
     "team": { "shiQi": 13, "xingBei": 1, "zhanJi": ["baoShi","shuiJing"] },
     "enemy": { "shiQi": 9, "xingBei": 0, "zhanJi": [] },
     "players": [
       {"seat":1,"actor":"shengNv","side":"red","handCount":5,"zhiLiao":2,"markers":{},"statusEffects":[]},
       {"seat":5,"actor":"kuangZhanShi","side":"blue","handCount":6,"zhiLiao":0,"markers":{},"statusEffects":["xuRuo"]}
     ],
-    "phase": "xingDong",
-    "actionsLeft": {"gongJiOrFaShu":1,"gongJi":0,"faShu":0,"extra":0}
+    "actionsLeft": {"gongJiOrFaShu":1,"gongJi":0,"faShu":0,"extra":0},
+    "phase": "xingDong"
   },
   "deadline_ms": 30000,
   "fallback": {"strategy": "first_legal"}
@@ -134,8 +136,8 @@ flowchart TB
 3. 调用 Bridge 跑批对局；批量足够大才有统计意义(单组对位≥50局起步, OP 复核≥300局)。
 4. 跑完调用 Distiller 蒸馏；读取其新假设，生成下一轮针对性实验(镜像/反制/禁用/数值变体)。
 5. 维护 skill 库版本与实验台账(runtime/experiments.jsonl)。
-约束：固定随机种子做可复现实验；只看大样本胜率，不被单局误导；不改引擎、不动 git。
-停止判据：某结论在 n≥300 且跨≥2个数值变体下胜率显著且稳定 → 标记已蒸馏。
+约束：记录并固定随机种子做对照实验；只看大样本胜率，不被单局误导。种子只约束伪随机流，严格逐事件回放仍需 action trace 与时序控制；不改引擎、不动 git。
+停止判据：某打法结论在 n≥300、跨≥2个数值变体、≥3个阵容族、≥2种模式/队内座次，并通过镜像/反制/消融且置信区间稳定后，才可标记 `verified`；规则结论还必须逐条回链官方来源与 fixture。单局或单阵容只能产生 hypothesis。
 ```
 
 ### 4.2 Player 子智能体系统提示
@@ -201,10 +203,13 @@ skills/
 ```markdown
 ---
 id: tactics/chain-action-rush
-status: verified | hypothesis | deprecated
+status: verified | hypothesis | partial | deprecated
 confidence: 0.0-1.0
-evidence: { samples: 420, win_rate: 0.78, modes: ["2v2"], variants: ["default","shiqi20"] }
+evidence: { samples: 420, win_rate: 0.78, modes: ["2v2","3v3"], variants: ["default","shiqi20"] }
 source_matches: ["m_000101", "m_000457"]
+dynamic_fixture_ids: ["fixture_id"]
+rules_version: manual-10th-core-v0.1
+seat_layouts: ["red-front", "blue-front"]
 updated: 2026-06-26
 ---
 
@@ -219,7 +224,7 @@ updated: 2026-06-26
 ```
 
 **蒸馏铁律：**
-- **rules/ 优先级最高**：规则错误会污染一切，必须 100% 实证。
+- **rules/ 优先级最高**：规则错误会污染一切；每条进入 `confirmed` 的规则必须有官方来源、引擎行为、差异、具体 fixture 回链和负例/边界证据，未满足者保持 `hypothesis`/`partial`。
 - 结论可被推翻：新证据更强 → 更新并在文件内留变更记录。
 - `hypothesis` 必须经新一轮对局验证才能升级为 `verified`。
 
@@ -235,7 +240,7 @@ while 仍有未蒸馏假设 or 预算未尽:
   4. Distiller 读批 → 更新 skills/{rules,operations,tactics,meta}
   5. Distiller 产出新假设 → 回写 open-questions.md
   6. MainAgent 据此排下一轮(针对性: 镜像/反制/禁用/数值变体)
-收敛: 结论在 n≥300 且跨≥2变体稳定 → status: verified, 标记已蒸馏
+收敛: `tactics/`/`meta/` 结论在 n≥300、跨≥2变体/3阵容族/2模式与座次，且通过镜像、反制、消融后 → `status: verified`；规则还需规范与 fixture 双向回链。否则保持 `hypothesis` 或 `partial`。
 ```
 
 ---
@@ -259,13 +264,13 @@ while 仍有未蒸馏假设 or 预算未尽:
 
 ## 8. 在 Copilot CLI 中运行
 
-> 假设项目根为本目录；Bridge/Engine harness 为待实现组件(见第10节阶段0)。
+> 假设项目根为本目录；Bridge/Engine harness 已能启动真实引擎、自博弈、基础 choose* 与主要复合行动外部接管，完整 LLM 策略与多选增量决策仍按后续阶段推进。
 
 **目录约定：**
 ```
 xingbei-arena/
   AGENTS.md            # 本文件(主提示词)
-  bridge/              # 决策桥 + 无头引擎 harness(待建)
+  bridge/              # 决策桥 + 无头引擎 harness（基础 choose* 与主要复合行动已接通）
   runtime/             # inbox/ outbox/ matches/ experiments.jsonl
   skills/              # 蒸馏产物(见第5节)
 ```
@@ -287,17 +292,17 @@ copilot -p "$(cat AGENTS.md)\n\n你现在扮演 Distiller, 读取 runtime/matche
 copilot -p "$(cat AGENTS.md)\n\n你现在扮演 MainAgent, 执行第6节主循环的一轮: 读 open-questions.md → 排对局矩阵 → 调 bridge/run.js 跑批 → 调起 Distiller → 汇报本轮结论与下一轮计划。"
 ```
 
-> 决策吞吐优化：信箱模式可让 Player 端**批处理 inbox 中多个请求**以摊薄调用开销；也可对"明显最优/唯一合法"的决策走 `fallback: first_legal` 直接由 Bridge 处理，不惊动 LLM。
+> 决策吞吐优化：信箱模式可让 Player 端**批处理 inbox 中多个请求**以摊薄调用开销；也可对"明显最优/唯一合法"的决策走 `fallback: first_legal` 直接由 Bridge 处理，不惊动 LLM。桥接烟测还支持 `XB_INLINE_POLICY=first_legal|deterministic_random|heuristic`，其中 heuristic 只消费公开候选、角色组合和座次特征；这些策略仅验证暂停/回写链路，不用于质量结论。
 
 ---
 
 ## 9. 约束与护栏（汇总，硬性）
 
-- ✅ 引擎裁判一切规则；LLM 只在 `legal_options` 内选择。
+- ✅ 自动对局由引擎推进；LLM 只在运行时 `legal_options` 内选择；规范正确性另由版本化规则库和测试裁定。
 - ✅ 决策必须合法、及时、无臆测隐藏信息。
 - ✅ 写入 skill 必须带证据 + 置信度 + 日期；rules/ 必须 100% 实证。
-- ✅ 大样本统计才下结论；固定种子可复现。
-- ⛔ 不修改 `noname_xingbei_clone/` 任何文件；不执行任何 git 命令；不联网提交对局数据到外部 DB。
+- ✅ 大样本统计才下结论；记录种子并固定实验批次。严格逐事件回放需额外 action trace，不能仅凭种子保证。
+- ⛔ 不修改 `noname_xingbei/` 任何文件；不执行任何 git 命令；不联网提交对局数据到外部 DB。
 - ⛔ LLM 不得自行结算伤害/士气/触发；不得伪造对局结果。
 - ⛔ 不绕过合法性校验、不投机取巧刷胜率(那会污染蒸馏)。
 - 💰 预算意识：唯一合法/明显最优决策走 fallback；只在有意义的分支调用 LLM。

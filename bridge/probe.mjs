@@ -2,6 +2,7 @@
 // 一次性"探针": 打开无头引擎, 把运行时 API 与启动星杯对局所需的信息 dump 到 runtime/probe.json。
 // 因为 noname 启动序列(首屏菜单/配置)依机器而异, 用本脚本让 Copilot CLI 看到真实情况后补全 selfplay 的 startMatch()。
 import { chromium } from 'playwright';
+import { browserLaunchOptions } from './browser.mjs';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -11,7 +12,7 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const RUNTIME = join(__dirname, '..', 'runtime');
 
 const server = await startServer();
-const browser = await chromium.launch({ headless: true });
+const browser = await chromium.launch(browserLaunchOptions({ headless: true }));
 const page = await browser.newPage();
 page.on('console', m => console.log('[page]', m.text()));
 

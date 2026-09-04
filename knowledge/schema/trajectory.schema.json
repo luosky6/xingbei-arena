@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://xingbei-arena.local/schema/trajectory.v1.json",
+  "title": "Xingbei Arena trajectory.v1 JSONL envelopes",
+  "description": "Line-oriented contract for public event trajectories. Hidden card identities are never required.",
+  "oneOf": [
+    { "$ref": "#/$defs/trajectoryMeta" },
+    { "$ref": "#/$defs/trajectoryRecord" },
+    { "$ref": "#/$defs/trajectoryEnd" },
+    { "$ref": "#/$defs/matchResult" },
+    { "$ref": "#/$defs/violation" }
+  ],
+  "$defs": {
+    "nonEmptyString": { "type": "string", "minLength": 1 },
+    "nullableString": { "type": ["string", "null"] },
+    "side": { "enum": ["red", "blue", "both", null] },
+    "commonMetadata": {
+      "type": "object",
+      "required": ["match_id", "rules_version", "engine_fingerprint", "config_hash", "policy_id", "schema_version"],
+      "properties": {
+        "match_id": { "$ref": "#/$defs/nonEmptyString" },
+        "rules_version": { "$ref": "#/$defs/nonEmptyString" },
+        "engine_fingerprint": { "$ref": "#/$defs/nonEmptyString" },
+        "config_hash": { "$ref": "#/$defs/nonEmptyString" },
+        "policy_id": { "$ref": "#/$defs/nonEmptyString" },
+        "rules_profile": { "$ref": "#/$defs/nonEmptyString" },
+        "schema_version": { "const": "trajectory.v1" }
+      },
+      "additionalProperties": true
+    },
+    "trajectoryMeta": {
+      "allOf": [
+        { "$ref": "#/$defs/commonMetadata" },
+        {
+          "type": "object",
+          "required": ["type", "record_count", "dropped_count"],
+          "properties": {
+            "type": { "const": "trajectory_meta" },
+            "record_count": { "type": "integer", "minimum": 0 },
+            "dropped_count": { "type": "integer", "minimum": 0 },
+            "mode": { "type": "string" },
+            "seed": { "type": "integer" },
+            "rules_profile": { "type": "string" },
+            "initial_morale": { "type": "integer", "minimum": 1 },
+            "overlay_side": { "$ref": "#/$defs/side" }
+          }
+        }
+      ]
+    },
+    "trajectoryEnd": {
+      "allOf": [
+        { "$ref": "#/$defs/commonMetadata" },
+        {
+          "type": "object",
+          "required": ["type", "record_count", "dropped_count"],
+          "properties": {
+            "type": { "const": "trajectory_end" },
+            "record_count": { "type": "integer", "minimum": 0 },
+            "dropped_count": { "type": "integer", "minimum": 0 },
+            "rules_profile": { "type": "string" },
+            "initial_morale": { "type": "integer", "minimum": 1 },
+            "overlay_side": { "$ref": "#/$defs/side" }
+          }
+        }
+      ]
+    },
+    "trajectoryRecord": {
+      "type": "object",
+      "required": ["schema_version", "match_id", "rules_version", "seq", "ts_ms", "kind", "hook"],
+      "properties": {
+        "schema_version": { "const": "trajectory.v1" },
+        "match_id": { "$ref": "#/$defs/nonEmptyString" },
+        "rules_version": { "$ref": "#/$defs/nonEmptyString" },
+        "seq": { "type": "integer", "minimum": 1 },
+        "ts_ms": { "type": "integer", "minimum": 0 },
+        "kind": { "enum": ["event_create", "event_set_content", "event_trigger", "event_start", "event_finish", "decision_request", "api_call", "public_hook"] },
+        "hook": { "type": "string" },
+        "event_id": { "type": ["string", "null"] },
+        "parent_event_id": { "type": ["string", "null"] },
+        "public_state": { "type": ["object", "null"] }
+      },
+      "additionalProperties": true
+    },
+    "matchResult": {
+      "type": "object",
+      "required": ["type", "schema_version", "match_id", "rules_version", "engine_fingerprint", "config_hash", "policy_id"],
+      "properties": {
+        "type": { "const": "result" },
+        "schema_version": { "const": "result.v1" },
+        "match_id": { "$ref": "#/$defs/nonEmptyString" },
+        "rules_version": { "$ref": "#/$defs/nonEmptyString" },
+        "engine_fingerprint": { "$ref": "#/$defs/nonEmptyString" },
+        "config_hash": { "$ref": "#/$defs/nonEmptyString" },
+        "policy_id": { "$ref": "#/$defs/nonEmptyString" },
+        "rules_profile": { "type": "string" },
+        "initial_morale": { "type": "integer", "minimum": 1 },
+        "winner_side": { "enum": ["red", "blue", null] },
+        "win_by": { "type": ["string", "null"] },
+        "turns": { "type": ["integer", "null"], "minimum": 0 },
+        "trajectory_file": { "type": "string" },
+        "trajectory_records": { "type": "integer", "minimum": 0 },
+        "trajectory_dropped": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": true
+    },
+    "violation": {
+      "type": "object",
+      "required": ["type", "match_id", "decision_id", "reason"],
+      "properties": {
+        "type": { "const": "violation" },
+        "match_id": { "$ref": "#/$defs/nonEmptyString" },
+        "decision_id": { "$ref": "#/$defs/nonEmptyString" },
+        "reason": { "$ref": "#/$defs/nonEmptyString" },
+        "fallback": { "type": ["string", "null"] }
+      },
+      "additionalProperties": true
+    }
+  }
+}

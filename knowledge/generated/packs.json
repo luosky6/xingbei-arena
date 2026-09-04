@@ -1,0 +1,307 @@
+{
+  "schema_version": "knowledge.v1",
+  "generated_at": "2026-09-03T00:00:00.000+08:00",
+  "engine_fingerprint": "sha256:87969d59674cdcfda1060d35edbd924d12e20fa3d6aab60352726223cf18cc9d",
+  "objects": [
+    {
+      "schema_version": "knowledge.v1",
+      "id": "pack:boss",
+      "kind": "pack",
+      "name": "boss",
+      "pack_type": "character",
+      "source_tier": "engine_implementation",
+      "provenance": [
+        {
+          "source_id": "engine",
+          "file": "character/boss.js",
+          "line": 2,
+          "locator": "game.import",
+          "sha256": "67e0178d8578254ebdef3fa05d07e7f8b5636539fc2232ee4bad9d18da6442e2"
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "engine",
+          "file": "character/boss.js",
+          "line": 2,
+          "locator": "game.import",
+          "sha256": "67e0178d8578254ebdef3fa05d07e7f8b5636539fc2232ee4bad9d18da6442e2"
+        }
+      ],
+      "applicable_versions": [
+        "engine-source"
+      ],
+      "adjudication_status": "needs_dynamic_test"
+    },
+    {
+      "schema_version": "knowledge.v1",
+      "id": "pack:poXiao",
+      "kind": "pack",
+      "name": "poXiao",
+      "pack_type": "character",
+      "source_tier": "engine_implementation",
+      "provenance": [
+        {
+          "source_id": "engine",
+          "file": "character/poXiao.js",
+          "line": 2,
+          "locator": "game.import",
+          "sha256": "2742ef977c6893f3227ce01df8b72034f4a800f29ca0e770f2597aa0e995107e"
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "engine",
+          "file": "character/poXiao.js",
+          "line": 2,
+          "locator": "game.import",
+          "sha256": "2742ef977c6893f3227ce01df8b72034f4a800f29ca0e770f2597aa0e995107e"
+        }
+      ],
+      "applicable_versions": [
+        "engine-source"
+      ],
+      "adjudication_status": "needs_dynamic_test"
+    },
+    {
+      "schema_version": "knowledge.v1",
+      "id": "pack:sanBan",
+      "kind": "pack",
+      "name": "sanBan",
+      "pack_type": "character",
+      "source_tier": "engine_implementation",
+      "provenance": [
+        {
+          "source_id": "engine",
+          "file": "character/sanBan.js",
+          "line": 2,
+          "locator": "game.import",
+          "sha256": "ee66964805c27a46b0c9876733754acf30d0c588b86a714f3adec50bc2019d0b"
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "engine",
+          "file": "character/sanBan.js",
+          "line": 2,
+          "locator": "game.import",
+          "sha256": "ee66964805c27a46b0c9876733754acf30d0c588b86a714f3adec50bc2019d0b"
+        }
+      ],
+      "applicable_versions": [
+        "engine-source"
+      ],
+      "adjudication_status": "needs_dynamic_test"
+    },
+    {
+      "schema_version": "knowledge.v1",
+      "id": "pack:shenZiChuangLin",
+      "kind": "pack",
+      "name": "shenZiChuangLin",
+      "pack_type": "character",
+      "source_tier": "engine_implementation",
+      "provenance": [
+        {
+          "source_id": "engine",
+          "file": "character/shenZiChuangLin.js",
+          "line": 2,
+          "locator": "game.import",
+          "sha256": "c39f57b18d3c0b747e1ed85e49d4e953660fc0be07bb54954aa676dcab178d20"
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "engine",
+          "file": "character/shenZiChuangLin.js",
+          "line": 2,
+          "locator": "game.import",
+          "sha256": "c39f57b18d3c0b747e1ed85e49d4e953660fc0be07bb54954aa676dcab178d20"
+        }
+      ],
+      "applicable_versions": [
+        "engine-source"
+      ],
+      "adjudication_status": "needs_dynamic_test"
+    },
+    {
+      "schema_version": "knowledge.v1",
+      "id": "pack:shiZhouNian",
+      "kind": "pack",
+      "name": "shiZhouNian",
+      "pack_type": "character",
+      "source_tier": "engine_implementation",
+      "provenance": [
+        {
+          "source_id": "engine",
+          "file": "character/shiZhouNian.js",
+          "line": 9887,
+          "locator": "game.import",
+          "sha256": "9a4dd33243ddea9ade2d5ac952c8d7a00273cca0d38ac321f4581cc944d41288"
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "engine",
+          "file": "character/shiZhouNian.js",
+          "line": 9887,
+          "locator": "game.import",
+          "sha256": "9a4dd33243ddea9ade2d5ac952c8d7a00273cca0d38ac321f4581cc944d41288"
+        }
+      ],
+      "applicable_versions": [
+        "engine-source"
+      ],
+      "adjudication_status": "needs_dynamic_test"
+    },
+    {
+      "schema_version": "knowledge.v1",
+      "id": "pack:siBan",
+      "kind": "pack",
+      "name": "siBan",
+      "pack_type": "character",
+      "source_tier": "engine_implementation",
+      "provenance": [
+        {
+          "source_id": "engine",
+          "file": "character/siBan.js",
+          "line": 2,
+          "locator": "game.import",
+          "sha256": "a22842e13854d84b652f06001a9ae98056968a3e7ce796df678d36d21b554db6"
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "engine",
+          "file": "character/siBan.js",
+          "line": 2,
+          "locator": "game.import",
+          "sha256": "a22842e13854d84b652f06001a9ae98056968a3e7ce796df678d36d21b554db6"
+        }
+      ],
+      "applicable_versions": [
+        "engine-source"
+      ],
+      "adjudication_status": "needs_dynamic_test"
+    },
+    {
+      "schema_version": "knowledge.v1",
+      "id": "pack:teDian",
+      "kind": "pack",
+      "name": "teDian",
+      "pack_type": "character",
+      "source_tier": "engine_implementation",
+      "provenance": [
+        {
+          "source_id": "engine",
+          "file": "character/teDian.js",
+          "line": 2,
+          "locator": "game.import",
+          "sha256": "affbe28aa0fe5ffdacd84a8b95e79e4a9cfbe1298f9ca568b71e9b103f23bea7"
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "engine",
+          "file": "character/teDian.js",
+          "line": 2,
+          "locator": "game.import",
+          "sha256": "affbe28aa0fe5ffdacd84a8b95e79e4a9cfbe1298f9ca568b71e9b103f23bea7"
+        }
+      ],
+      "applicable_versions": [
+        "engine-source"
+      ],
+      "adjudication_status": "needs_dynamic_test"
+    },
+    {
+      "schema_version": "knowledge.v1",
+      "id": "pack:xingBei",
+      "kind": "pack",
+      "name": "xingBei",
+      "pack_type": "card",
+      "source_tier": "engine_implementation",
+      "provenance": [
+        {
+          "source_id": "engine",
+          "file": "card/xingBei.js",
+          "line": 2,
+          "locator": "game.import",
+          "sha256": "59227cb8b4b72f406b09a5fb34703cdba8e009790054af0ed39d2d1988e5a785"
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "engine",
+          "file": "card/xingBei.js",
+          "line": 2,
+          "locator": "game.import",
+          "sha256": "59227cb8b4b72f406b09a5fb34703cdba8e009790054af0ed39d2d1988e5a785"
+        }
+      ],
+      "applicable_versions": [
+        "engine-source"
+      ],
+      "adjudication_status": "needs_dynamic_test"
+    },
+    {
+      "schema_version": "knowledge.v1",
+      "id": "pack:yiDuanYeHuo",
+      "kind": "pack",
+      "name": "yiDuanYeHuo",
+      "pack_type": "character",
+      "source_tier": "engine_implementation",
+      "provenance": [
+        {
+          "source_id": "engine",
+          "file": "character/yiDuanYeHuo.js",
+          "line": 2,
+          "locator": "game.import",
+          "sha256": "f5443cb877c2e0424ed132a911ebff0885af4cee7fa08e4dfc05e94919d2132b"
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "engine",
+          "file": "character/yiDuanYeHuo.js",
+          "line": 2,
+          "locator": "game.import",
+          "sha256": "f5443cb877c2e0424ed132a911ebff0885af4cee7fa08e4dfc05e94919d2132b"
+        }
+      ],
+      "applicable_versions": [
+        "engine-source"
+      ],
+      "adjudication_status": "needs_dynamic_test"
+    },
+    {
+      "schema_version": "knowledge.v1",
+      "id": "pack:zhongMoDaoZhu",
+      "kind": "pack",
+      "name": "zhongMoDaoZhu",
+      "pack_type": "character",
+      "source_tier": "engine_implementation",
+      "provenance": [
+        {
+          "source_id": "engine",
+          "file": "character/zhongMoDaoZhu.js",
+          "line": 2,
+          "locator": "game.import",
+          "sha256": "511a25b58757944882785966e519a786f4f0405c922e333c83a42d3675efc5a7"
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "engine",
+          "file": "character/zhongMoDaoZhu.js",
+          "line": 2,
+          "locator": "game.import",
+          "sha256": "511a25b58757944882785966e519a786f4f0405c922e333c83a42d3675efc5a7"
+        }
+      ],
+      "applicable_versions": [
+        "engine-source"
+      ],
+      "adjudication_status": "needs_dynamic_test"
+    }
+  ]
+}

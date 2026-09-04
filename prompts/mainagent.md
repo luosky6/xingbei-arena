@@ -23,7 +23,7 @@
 
 ```bash
 # Distiller：分析本批日志并更新 skills/
-copilot --allow-all-tools -p "$(cat AGENTS.md)\n\n你是 Distiller。读取 runtime/matches/ 中本轮新增 jsonl，按 AGENTS.md §5 更新 skills/，并向 skills/meta/open-questions.md 追加新假设。只写 xingbei-arena/，不碰 ../noname_xingbei_clone，不执行 git。"
+copilot --allow-all-tools -p "$(cat AGENTS.md)\n\n你是 Distiller。读取 runtime/matches/ 中本轮新增 jsonl，按 AGENTS.md §5 更新 skills/，并向 skills/meta/open-questions.md 追加新假设。只写 xingbei-arena/，不碰 ../noname_xingbei，不执行 git。"
 
 # Player（仅在 LLM 在环对局时）：处理决策信箱
 copilot --allow-all-tools -p "$(cat AGENTS.md)\n\n你是 Player 子智能体，持续处理 runtime/inbox/*.req.json → 写 runtime/outbox/<id>.res.json，严格遵守 AGENTS.md §3.2。"
@@ -42,7 +42,7 @@ LOOP:
      - 套路强度：≥100 局；OP 复核：≥300 局且跨≥2 数值变体。
   3. 跑批：用 shell 执行
         XB_MATCHES=<n> XB_MODE=<two|three|four> XB_TEAM_A=... XB_TEAM_B=... npm run selfplay
-     固定种子以可复现；记录到 runtime/experiments.jsonl。
+     记录并固定种子用于批次对照；严格回放还需 action trace；记录到 runtime/experiments.jsonl。
   4. 拉起 Distiller 子进程分析本批 → 更新 skills/ → 读回它产出的新假设。
      - **BP 蒸馏(必做)**：每轮把对局/选秀结果回填 skills/tactics/bp-draft.md 的"按角色/对位针对表"
        (Ban优先级/必抢/对位应对/顺位价值)；它是最终 skill 的组成部分，样本够再升 verified。
@@ -64,34 +64,34 @@ LOOP:
 - 全部 open-questions 清空 或 命中第 4 节任一预算 → 退出主循环。
 
 ## 6. 人工检查点（这些必须暂停并请求人类确认，不得自主执行）
-- 修改 `../noname_xingbei_clone/` 任何文件、或任何 `git` 操作 → **永不执行**。
+- 修改 `../noname_xingbei/` 任何文件、或任何 `git` 操作 → **永不执行**。
 - 单轮计划局数 > 1000，或预计耗时 > 1 小时 → 先报计划等确认。
 - 改动 IO schema / overlay 注入点 / 引擎接管逻辑 → 先报方案等确认。
 - 把某 OP 结论写入 `skills/meta/tier.md` 顶级"强势"梯队 → 可自主写 `verified`，但**首次**确立梯队前汇报一次。
 - 任何联网/对外提交对局数据 → 禁止（AGENTS.md 已约束）。
 
 ## 7. 护栏（始终生效）
-- 引擎是规则唯一真理；不自行裁判结算。
+- 规范规则以版本化官方资料为准；引擎仅推进当前实现。不得在运行中自行篡改结算，发现差异必须写入规则差异记录。
 - 写入 skill 必须带 evidence/confidence/updated；rules/ 必须 100% 实证。
 - 只看大样本，不被单局误导；固定种子。
-- 只写 `xingbei-arena/`；不碰 clone、不动 git、不联网提交。
+- 只写 `xingbei-arena/`；不碰引擎目录、不动 git、不联网提交。
 
 ## 8. 启动时先做
 1. 读 `runtime/run-state.json`（不存在则初始化 round=0）。
-2. 若 `bridge/selfplay.mjs` 的 `startMatch()` 仍是 `[DISCOVER]` 占位（即还没跑通无头启动）：
-   **先完成 step1 发现任务**（读 runtime/probe.json 补全 startMatch），跑通 1 局验证，再进入主循环。
+2. 若引擎升级后 `bridge/selfplay.mjs` 的启动流程失效：
+   **先完成兼容性检查**（读 runtime/probe.json 修复 startMatch），跑通 1 局验证，再进入主循环。
 3. 否则直接进入第 3 节自主循环。
 
 ### 当前精确续接点（2026-06-29，已de-risk，从这里继续）
-- 已跑通：`saveConfig+reload` 稳定进对局、创建玩家、自动选将(点候选+确定)、AI 自动对战(已见 phase10、士气下降)；见 `bridge/selfplay.mjs` startMatch + RECORDER + clicker。
+- 已跑通：`saveConfig+reload` 稳定进对局、创建玩家、自动选将(点候选+确定)、AI 自动对战；见 `bridge/selfplay.mjs` startMatch + trajectory recorder + clicker。
 - `import('/noname.js')` 拿全 API；`get.config` 读 `lib.config.mode_config[mode][item]`；`readFileAsText` 404 无害。
-- selfplay 已能开局自动跑；结果记录器改用模块 import 抓 game.over。
+- selfplay 已能开局自动跑；结果记录器改用模块 import 抓 game.over，逐事件轨迹独立写入 `runtime/trajectories/`。
 
 ### 待你(MainAgent)自行处理的已知问题清单（启动先逐条收尾）
-1. **跑通验证**：`XB_MATCHES=1 npm run selfplay` 应产出 1 条 `runtime/matches/*.jsonl`。若没产出，查 RECORDER 是否成功 wrap game.over、winner_side/stats 是否正确。
+1. **跑通验证**：`XB_MATCHES=1 npm run selfplay` 应产出 1 条 `runtime/matches/*.jsonl` 与一条 trajectory 文件。若没产出，查结果记录器是否成功 wrap game.over、winner_side/stats 是否正确。
 2. **单局过长**：成局到士气0约 50+ phase，5min 超时可能不够。要么调大 selfplay 超时(300000→600000)，要么降士气上限(XB 不支持环境变量，需在 startMatch 写 mode_config.shiqiMax 小值)做快速验证局。
 3. **人数回落**：mode_config.versus_mode 偶尔回落 'two'(4人)；确保 reload 前已 saveConfig 持久化、3v3 取 'three'(6人)，校验 players===6。
-4. **种子可复现**：固定随机种子(startMatch 注入 Math.random 替换或引擎种子)，否则统计不可复现。
+4. **种子与回放**：固定种子只约束 `Math.random` 流，不能保证异步事件严格一致；需要逐决策 action trace 才能做确定性回放。
 5. **指定阵容/逐手LLM**：当前自动选随机角色；要测特定阵容需在 startMatch 指派 player.init；逐手LLM用 decisionBridge(信箱)，仅在小样本质性测时开。
 - 收尾后 → baseline 批量 → 蒸馏(含 BP 表) → 进第3节循环。## 9. 每轮向人类汇报（简短）
 - 本轮目标假设、对局矩阵、关键统计（胜率/win_by 分布/场均 change_shiqi）。

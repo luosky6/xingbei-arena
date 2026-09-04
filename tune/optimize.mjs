@@ -9,13 +9,16 @@ import { fileURLToPath } from 'node:url';
 import { spawn } from 'node:child_process';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
-const WEIGHTS = join(__dirname, '..', 'ai-overlay', 'weights.json');
+const WEIGHTS = process.env.XB_WEIGHTS_PATH || join(__dirname, '..', 'ai-overlay', 'weights.json');
 const RUNTIME = join(__dirname, '..', 'runtime');
 
 const GENERATIONS = Number(process.env.XB_GEN || 6);
 const POP = Number(process.env.XB_POP || 12);
 const ELITE = Number(process.env.XB_ELITE || 4);
 const EVAL_MATCHES = Number(process.env.XB_EVAL || 40);
+const EVAL_SEED = Number(process.env.XB_OPT_SEED || 700000);
+const EVAL_MODE = process.env.XB_MODE || 'two';
+const REPORT = join(RUNTIME, 'optimizer-evals.jsonl');
 
 // 仅优化数值型标量权重(顶层)。victim/search 子项可后续纳入。
 const KEYS = ['shiqi_diff','shiqi_enemy_near0','shiqi_self_near0','xingbei_diff',
@@ -25,33 +28,51 @@ const KEYS = ['shiqi_diff','shiqi_enemy_near0','shiqi_self_near0','xingbei_diff'
 
 function sampleGaussian(mu, sigma) { return mu + sigma * (Math.sqrt(-2*Math.log(Math.random()))*Math.cos(2*Math.PI*Math.random())); }
 
-// [DISCOVER] 评估一组权重: 写入 weights.json, 跑 EVAL_MATCHES 局(overlay vs baseline), 返回胜率。
+// 评估一组权重: 红方 overlay、蓝方内置 AI，使用同一批种子，返回真实胜率。
 async function evaluate(weightsObj) {
   const base = JSON.parse(await readFile(WEIGHTS, 'utf8'));
   const merged = { ...base };
   for (const k of KEYS) merged[k] = weightsObj[k];
   await writeFile(WEIGHTS, JSON.stringify(merged, null, 2));
 
-  // 跑 selfplay: 一侧 overlay, 一侧 baseline。需 selfplay 支持 XB_OVERLAY_SIDE(待实现)。
-  await runSelfplay({ matches: EVAL_MATCHES, overlay: true });
-
-  // TODO[DISCOVER]: 解析 runtime/matches 本批结果, 计算 overlay 侧胜率并返回。
-  return await overlayWinRate();
+  await runSelfplay({ matches: EVAL_MATCHES, overlay: true, overlaySide: 'red', seed: EVAL_SEED, mode: EVAL_MODE, prefix: 'opt_r' });
+  await runSelfplay({ matches: EVAL_MATCHES, overlay: true, overlaySide: 'blue', seed: EVAL_SEED, mode: EVAL_MODE, prefix: 'opt_b' });
+  const red = await overlayWinRate({ matches: EVAL_MATCHES, seed: EVAL_SEED, side: 'red', prefix: 'opt_r' });
+  const blue = await overlayWinRate({ matches: EVAL_MATCHES, seed: EVAL_SEED, side: 'blue', prefix: 'opt_b' });
+  const result = { red, blue, wins: red.wins + blue.wins, valid: red.valid + blue.valid, win_rate: (red.win_rate + blue.win_rate) / 2 };
+  await writeFile(REPORT, `${JSON.stringify({ ts: new Date().toISOString(), mode: EVAL_MODE, seed: EVAL_SEED, matches_per_side: EVAL_MATCHES, ...result, weights: weightsObj })}\n`, { flag: 'a' });
+  return result.win_rate;
 }
 
 function runSelfplay(env) {
   return new Promise((resolve, reject) => {
     const p = spawn(process.execPath, [join(__dirname, '..', 'bridge', 'selfplay.mjs')], {
       stdio: 'inherit',
-      env: { ...process.env, XB_MATCHES: String(env.matches), XB_OVERLAY: env.overlay ? '1' : '' }
+      env: { ...process.env, XB_MATCHES: String(env.matches), XB_OVERLAY: env.overlay ? '1' : '', XB_OVERLAY_SIDE: env.overlaySide || 'both', XB_SEED: String(env.seed ?? EVAL_SEED), XB_MODE: env.mode || EVAL_MODE, XB_MATCH_PREFIX: env.prefix || 'm' }
     });
     p.on('exit', code => code === 0 ? resolve() : reject(new Error('selfplay exit ' + code)));
   });
 }
 
-async function overlayWinRate() {
-  // TODO[DISCOVER]: 读取本批 jsonl, 统计 overlay 侧 is_winner 比例。占位返回 0.5。
-  return 0.5;
+async function overlayWinRate({ matches, seed, side, prefix }) {
+  let wins = 0, valid = 0;
+  for (let i = 0; i < matches; i++) {
+    const path = join(RUNTIME, 'matches', `${prefix}_${String(seed + i).padStart(6, '0')}.jsonl`);
+    const lines = (await readFile(path, 'utf8').catch(() => '')).trim().split(/\r?\n/).filter(Boolean);
+    if (!lines.length) continue;
+    let row;
+    try { row = JSON.parse(lines.at(-1)); } catch { continue; }
+    if (row.type !== 'result' || row.overlay_side !== side || row.overlay_installed !== true || row.trajectory_dropped !== 0) continue;
+    valid++;
+    if (row.winner_side === side) wins++;
+  }
+  if (!valid) throw new Error(`no valid overlay evaluation results for seed ${seed}`);
+  const winRate = wins / valid;
+  const z = 1.959963984540054;
+  const denom = 1 + z * z / valid;
+  const center = (winRate + z * z / (2 * valid)) / denom;
+  const radius = z * Math.sqrt((winRate * (1 - winRate) + z * z / (4 * valid)) / valid) / denom;
+  return { wins, valid, win_rate: winRate, ci95_low: Math.max(0, center - radius), ci95_high: Math.min(1, center + radius) };
 }
 
 async function main() {

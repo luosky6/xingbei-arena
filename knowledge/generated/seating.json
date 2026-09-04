@@ -1,0 +1,116 @@
+{
+  "schema_version": "seating.v1",
+  "kind": "seating",
+  "source_tier": "engine_implementation",
+  "adjudication_status": "hypothesis",
+  "source_refs": [
+    {
+      "source_id": "engine",
+      "file": "mode/xingBei.js",
+      "line": 135,
+      "locator": "_status.firstAct",
+      "sha256": null
+    },
+    {
+      "source_id": "engine",
+      "file": "mode/xingBei.js",
+      "line": 311,
+      "locator": "team_sequence",
+      "sha256": null
+    },
+    {
+      "source_id": "engine",
+      "file": "mode/xingBei.js",
+      "line": 829,
+      "locator": "chooseCharacterOLBP",
+      "sha256": null
+    },
+    {
+      "source_id": "engine",
+      "file": "noname/game/index.js",
+      "line": 3579,
+      "locator": "player.next",
+      "sha256": null
+    }
+  ],
+  "concepts": [
+    {
+      "id": "physical_seat",
+      "meaning": "公开物理座位/数据位置；用于顺位和前后座位关系",
+      "engine_fields": [
+        "dataset.position"
+      ]
+    },
+    {
+      "id": "engine_seat_index",
+      "meaning": "引擎内部 seatNum；不得与公开物理座位混用",
+      "engine_fields": [
+        "seatNum"
+      ]
+    },
+    {
+      "id": "side",
+      "meaning": "红蓝阵营",
+      "engine_fields": [
+        "player.side"
+      ]
+    },
+    {
+      "id": "first_act",
+      "meaning": "当前回合循环首行动者",
+      "engine_fields": [
+        "_status.firstAct"
+      ]
+    },
+    {
+      "id": "next_previous",
+      "meaning": "顺时针/引擎行动链链接",
+      "engine_fields": [
+        "player.next",
+        "player.previous"
+      ]
+    },
+    {
+      "id": "team_sequence",
+      "meaning": "队伍选角/行动编排序列",
+      "engine_fields": [
+        "team_sequence"
+      ]
+    },
+    {
+      "id": "bp_pick_order",
+      "meaning": "BP 选角选择顺序，独立于最终座位",
+      "engine_fields": [
+        "chooseCharacterOLBP",
+        "BP01",
+        "BP02"
+      ]
+    }
+  ],
+  "modes": [
+    {
+      "id": "two",
+      "players_per_side": 2,
+      "seat_order": "engine prepareArena(4)",
+      "first_act": "_status.firstAct or random player",
+      "team_sequence": "mode-dependent",
+      "bp_pick_order": "BP01/BP02 when configured"
+    },
+    {
+      "id": "three",
+      "players_per_side": 3,
+      "seat_order": "engine prepareArena(6)",
+      "first_act": "_status.firstAct or random player",
+      "team_sequence": "mode-dependent",
+      "bp_pick_order": "BP01/BP02 when configured"
+    },
+    {
+      "id": "four",
+      "players_per_side": 4,
+      "seat_order": "engine prepareArena(8)",
+      "first_act": "_status.firstAct or random player",
+      "team_sequence": "mode-dependent",
+      "bp_pick_order": "BP01/BP02 when configured"
+    }
+  ]
+}

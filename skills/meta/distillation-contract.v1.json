@@ -1,0 +1,70 @@
+{
+  "schema_version": "skill-distillation-contract.v1",
+  "purpose": "将规范规则、引擎观测和打法假设分层，并阻止证据不足的条目进入 verified 或 champion",
+  "status_taxonomy": {
+    "hypothesis": "静态推演或少量样本；可用于提出实验，不可作为稳定策略",
+    "partial": "部分条件/模式已验证，边界或反制仍未覆盖",
+    "verified": "满足对应 kind 的样本、来源、规则回链、跨变体、座次、反制和消融门禁",
+    "deprecated": "历史产物，仅用于追溯，不参与当前决策"
+  },
+  "common_required": [
+    "id",
+    "status",
+    "confidence",
+    "evidence",
+    "updated"
+  ],
+  "promotion_gates": {
+    "rules": {
+      "normative_source_refs": true,
+      "engine_behavior_and_difference": true,
+      "dynamic_fixture_ids": true,
+      "rules_version": true,
+      "negative_or_boundary_case": true,
+      "adjudication_status": "confirmed"
+    },
+    "operations": {
+      "minimum_samples": 100,
+      "source_matches": true,
+      "dynamic_fixture_ids": true,
+      "rules_version": true,
+      "counterplay_or_boundaries": true
+    },
+    "tactics": {
+      "minimum_samples": 300,
+      "minimum_variants": 2,
+      "minimum_seat_layouts": 2,
+      "minimum_lineups": 3,
+      "minimum_modes": 2,
+      "paired_or_mirror_comparison": true,
+      "ablation": true,
+      "counterplay_or_boundaries": true,
+      "source_matches": true,
+      "rules_version": true
+    },
+    "meta": {
+      "minimum_samples": 300,
+      "minimum_variants": 2,
+      "minimum_seat_layouts": 2,
+      "minimum_lineups": 3,
+      "minimum_modes": 2,
+      "ablation": true,
+      "source_matches": true,
+      "rules_version": true
+    }
+  },
+  "non_promotion_rules": [
+    "动态事件存在性或父子顺序通过，不等于官方卡面/说明书语义已确认",
+    "单局、单阵容、单座次、单一随机种子不得生成 verified skill",
+    "离线 ranking 指标或单侧未配对胜率不得晋级 champion",
+    "rules/ 中的 hypothesis 不得被 Player 当作规范真源使用",
+    "隐藏手牌、暗置牌和私有 storage 不得进入策略训练特征"
+  ],
+  "required_skill_sections": [
+    "applicable_scope",
+    "preconditions",
+    "action_sequence",
+    "counterplay_or_boundaries",
+    "evidence"
+  ]
+}
